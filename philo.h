@@ -18,7 +18,6 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	long int		time_start_of_session;
-	int				*flag_has_started_eating;
 	int				nr_times_to_eat;
 	long int		*time_started_eating;
 	long int		*deadlines;
