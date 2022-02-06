@@ -12,36 +12,41 @@
 
 typedef struct s_data
 {
-	int				nrfilos;
-	pthread_mutex_t	*fork_mutex;
-	long int		time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	long int		time_start_of_session;
-	int				nr_times_to_eat;
-	//long int		*time_started_eating;
-	//long int		*deadlines;
-	int				*old_times_eaten;
-	int				*new_times_eaten;
+	int					nrfilos;
+	pthread_mutex_t		*fork_mutex;
+	// mutex-write - maybe i need it
+	//unsigned long long	time_start_of_session;
+	unsigned long long	time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					nr_times_to_eat;
+	//long int			*time_started_eating;
+	//long int			*deadlines;
+	int					*old_times_eaten;
+	int					*new_times_eaten;
 } t_data;
 
 typedef struct s_philosopher
 {
-	t_data			*d;
-	int				philo_id;
-	pthread_t		philo_thread;
-	pthread_t		timer_thread;
-	pthread_mutex_t	mutex_time;
-	long int		time_started_eating;
-	long int		deadline;
-	struct timeval	start;
-
+	t_data				*d;
+	int					philo_id;
+	pthread_t			philo_thread;
+	//pthread_t			timer_thread;
+	pthread_mutex_t		mutex_time;
+	unsigned long long	time_started_eating;
+	unsigned long		deadline;
+	struct timeval		start;			// WHAT IS THIS ??
+	unsigned long long	startofsession;
 } t_philo;
 
-int			check_and_save_arguments(int argc, char *argv[], t_data *d);
-int			make_arrays_and_philos(t_data *d);
-void		mysleep(int milisecs);
-long int	milisecs_passed(t_philo *ph);
+int				check_and_save_arguments(int argc, char *argv[], t_data *d);
+int				make_arrays_and_philos(t_data *d);
+void			mysleep(int milisecs);
+//unsigned long	milisecs_passed(t_philo *ph);
+unsigned long	milisecs_passed(unsigned long long startofsession);
+
+
+
 // char *colors(int i);
 // char *choose_color(t_filo *f);
 

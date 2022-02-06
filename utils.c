@@ -49,34 +49,75 @@ int	check_if_all_ate_nr_times(t_philo *f)
 
 void	mysleep(int milisecs)
 {
-	long int	a;
-	long int	b;
-	long int	deadline;
-	struct		timeval t;
+	unsigned long long	old;
+	unsigned long long	new;
+	unsigned long long	deadline;
+	struct		timeval time;
 
-	gettimeofday(&t, NULL);
-	a = t.tv_sec * 1000000 + t.tv_usec;
-	deadline = a + milisecs * 1000;
-	b = 0;
-	while (b <= deadline)
+	gettimeofday(&time, NULL);
+	old = time.tv_sec * 1000000 + time.tv_usec;
+	deadline = old + milisecs * 1000;
+	new = 0;
+	while (new <= deadline)
 	{
 		usleep(10);
-		gettimeofday(&t, NULL);
-		b = t.tv_sec * 1000000 + t.tv_usec;
+		gettimeofday(&time, NULL);
+		new = time.tv_sec * 1000000 + time.tv_usec;
 	}
 }
 
 
-long int	milisecs_passed(t_philo *ph)
+// unsigned long	milisecs_passed(t_philo *ph)
+// {
+// 	unsigned long 		timestamp;
+// 	unsigned long long	newtime; // maybe it is enough just long int ???
+// 	struct timeval		t;
+
+
+
+// 	//pthread_mutex_lock(&ph->mutex_time);
+
+// 	gettimeofday(&t, NULL);
+// 	//a = t.tv_sec * 1000000 + t.tv_usec;
+// 	newtime = t.tv_sec * 1000 + t.tv_usec / 1000;
+// 	//timestamp = (a - ph->d->time_start_of_session) / 1000;
+// 	//timestamp = newtime - ph->d->time_start_of_session;
+// 	timestamp = newtime - ph->startofsession;
+	
+// 	printf(" .......   newtime:                 %lld\n", newtime);
+// 	printf(" .......   ph->start_of_session:    %lld\n", ph->startofsession);
+// 	printf(" ....... timestamp:                %ld\n", timestamp);
+	
+	
+// 	//pthread_mutex_unlock(&ph->mutex_time);
+
+// 	return (timestamp);
+// }
+
+
+unsigned long	milisecs_passed(unsigned long long startofsession)
 {
-	long int timestamp;
-	long int a;
-	struct timeval t;
+	unsigned long 		timestamp;
+	unsigned long long	newtime; // maybe it is enough just long int ???
+	struct timeval		t;
+
+
+
+	//pthread_mutex_lock(&ph->mutex_time);
 
 	gettimeofday(&t, NULL);
 	//a = t.tv_sec * 1000000 + t.tv_usec;
-	a = t.tv_sec * 1000 + t.tv_usec / 1000;
+	newtime = t.tv_sec * 1000 + t.tv_usec / 1000;
 	//timestamp = (a - ph->d->time_start_of_session) / 1000;
-	timestamp = a - ph->d->time_start_of_session;
+	//timestamp = newtime - ph->d->time_start_of_session;
+	timestamp = newtime - startofsession;
+	
+	// printf(" ....... newtime:             %lld\n", newtime);
+	// printf(" ....... start_of_session:    %lld\n", startofsession);
+	// printf(" ....... timestamp:           %ld\n", timestamp);
+	
+	
+	//pthread_mutex_unlock(&ph->mutex_time);
+
 	return (timestamp);
 }

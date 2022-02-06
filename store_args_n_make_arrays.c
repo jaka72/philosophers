@@ -13,7 +13,7 @@ int check_and_save_arguments(int argc, char *argv[], t_data *d)
 	d->time_to_eat = atoi(argv[3]);
 	d->time_to_sleep = atoi(argv[4]);
 	d->nr_times_to_eat = -1;
-	if (d->nrfilos < 0 || d->time_to_die < 0 ||		// ASK IF GOOD: nrphilos > 200 or < 1
+	if (d->nrfilos < 0 || d->time_to_die < 1 ||		// ASK IF GOOD: nrphilos > 200 or < 1
 		d->time_to_eat < 0 || d->time_to_sleep < 0)	// or time to to die ... < 60 ...
 	{
 		printf("Error: Invalid argument\n");
