@@ -41,8 +41,8 @@ int	make_arrays_and_philos(t_data *d)
 	d->fork_mutex = malloc(sizeof(pthread_mutex_t) * d->nrfilos);
 	d->old_times_eaten = malloc(sizeof(int) * d->nrfilos);
 	d->new_times_eaten = malloc(sizeof(int) * d->nrfilos);
-	d->time_started_eating = malloc(sizeof(long int) * d->nrfilos);
-	d->deadlines = malloc(sizeof(long int) * d->nrfilos);
+	//d->time_started_eating = malloc(sizeof(long int) * d->nrfilos);
+	//d->deadlines = malloc(sizeof(long int) * d->nrfilos);
 		// check errors for all mallocs
 	i = 0;
 	while (i < d->nrfilos)
@@ -51,8 +51,8 @@ int	make_arrays_and_philos(t_data *d)
 			// check error
 		d->old_times_eaten[i] = 0;
 		d->new_times_eaten[i] = 0;
-		d->time_started_eating[i] = 0;
-		d->deadlines[i] = d->time_to_die;
+		//d->time_started_eating[i] = 0;
+		//d->deadlines[i] = d->time_to_die;
 		i++;
 	}
 	return (0);

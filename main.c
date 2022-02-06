@@ -10,19 +10,21 @@ void	*timer(void *philo)
 	while (1)
 	{
 		i = 0;
-		reached = milisecs_passed(ph);
+		//usleep(2000);
 		while (i < ph->d->nrfilos)
 		{
-			//reached = milisecs_passed(ph);
-			if (reached > ph->d->deadlines[i]) 
+			pthread_mutex_lock(&ph[i].mutex_time);
+			reached = milisecs_passed(ph);
+			if (reached > ph->deadline) 
 			{
 				printf("%ld %d has died\n", reached, i + 1);
 				//return (0);
 				exit(0);
 			}
+			pthread_mutex_unlock(&ph[i].mutex_time);
 			i++;
 		}
-		usleep(100);
+		usleep(500);
 		//mysleep(1);
 	}
 	return (0);
@@ -38,8 +40,10 @@ void	calc_deadline(void *philo_struct)
 
 	ph = philo_struct;
 	id = ph->philo_id;
-	ph->d->time_started_eating[id] = milisecs_passed(ph);	
-	ph->d->deadlines[id] = ph->d->time_started_eating[id] + ph->d->time_to_die;
+	ph[id].time_started_eating = milisecs_passed(ph);	
+	ph->deadline = ph[id].time_started_eating + ph->d->time_to_die;
+	//ph->d->deadlines[id] = ph->d->time_started_eating[id] + ph->d->time_to_die;
+	
 	//ph->d->old_times_eaten[id] = ph->d->new_times_eaten[id];
 	//ph->d->new_times_eaten[id]++;
 }
@@ -99,16 +103,16 @@ int main(int argc, char *argv[])
 {
 	int				i;
 	t_philo			*philo_struct;
-	pthread_t		*philo_thread;	// THIS COULD BE A MEMBER INSIDE OF PHILO STRUCT
+	//pthread_t		*philo_thread;	// THIS COULD BE A MEMBER INSIDE OF PHILO STRUCT
 	t_data			data;		// SHOULD THIS BE BETTER DECLARED AS POINTER ??
-	pthread_t		timer_thread[1];
+	//pthread_t		timer_thread[1];
 
 	if (check_and_save_arguments(argc, argv, &data) == 1)
 		return (1);
 
 	make_arrays_and_philos(&data);
 
-	philo_thread = malloc(sizeof(pthread_t) * data.nrfilos);
+	//philo_thread = malloc(sizeof(pthread_t) * data.nrfilos);
 	philo_struct = malloc(sizeof(t_philo) * data.nrfilos);
 		// check error
 
@@ -118,6 +122,8 @@ int main(int argc, char *argv[])
 	{
 		philo_struct[i].philo_id = i;
 		philo_struct[i].d = &data;
+		philo_struct[i].deadline = data.time_to_die;
+		philo_struct[i].time_started_eating = 0;
 		i++;
 	}
 
@@ -131,30 +137,27 @@ int main(int argc, char *argv[])
 
 	
 
-
-	pthread_create(&timer_thread[0], NULL, timer, (void*)&philo_struct[0]); // ONLY THE FIRST STRUCT HAS TIMER ??
-														// MAYBE I SHOULD CREATE A SEPARATE STRUCT FOR TIMER 
-
-
-
 	i = 0;
 	while (i < data.nrfilos) 
 	{
-		pthread_create(&philo_thread[i], NULL, start_thread, (void*)&philo_struct[i]);
-			// check errors, also use pthread_detach
-		usleep(1);
+		//pthread_create(&philo_thread[i], NULL, start_thread, (void*)&philo_struct[i]);
+		pthread_create(&philo_struct[i].philo_thread, NULL, start_thread, (void*)&philo_struct[i]);
+			// check errors, also maybe use pthread_detach
+		usleep(100);
 		i++;
 	}
+
+	timer(&philo_struct);
 
 
 	i = 0;
 	while (i < atoi(argv[1]))
 	{
 		pthread_mutex_destroy(&philo_struct[i].d->fork_mutex[i]);
-		pthread_join(philo_thread[i], NULL);
+		pthread_detach(philo_struct[i].philo_thread); // IS THIS NECESSARY ??
+		pthread_join(philo_struct[i].philo_thread, NULL);
 		i++;
 	}
-	pthread_join(timer_thread[0], NULL);
 	return (0);
 }
 
