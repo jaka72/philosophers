@@ -16,7 +16,7 @@ typedef struct s_data
 	int					time_to_sleep;
 	int					nr_times_to_eat;
 	unsigned long long	startofsession;
-	pthread_mutex_t		*mutex_spoon;
+	pthread_mutex_t		*mutex_spoon; // maybe it can bemoved to philo? , For clarity
 }	t_data;
 
 
@@ -25,8 +25,9 @@ typedef struct s_philosopher
 	t_data				*d;
 	int					id;
 	unsigned long long	newtimetodie;
-	pthread_mutex_t		mutex_time;
 	pthread_t			thread;
+	pthread_mutex_t		mutex_time;
+	pthread_mutex_t		mutex_print;
 }	t_philo;
 
 t_data	*check_and_save_arguments(int argc, char *argv[]);

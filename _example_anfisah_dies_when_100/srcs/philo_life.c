@@ -6,7 +6,7 @@
 /*   By: ccoto <ccoto@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/12 10:57:48 by ccoto         #+#    #+#                 */
-/*   Updated: 2022/02/08 10:33:52 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/02/08 11:41:27 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ int	live_or_dead(t_main *main, t_philo *philo)
 
 			if (curr_time > philo->main->time_to_die)
 			{
-				//pthread_mutex_lock(&philo->main->mutex_write);
+				pthread_mutex_lock(&philo->main->mutex_write);
 				printf("%lldms %d %s", timestamp(philo), philo->pos, "died");
-				//pthread_mutex_destroy(&philo->main->mutex_write);
+				pthread_mutex_destroy(&philo->main->mutex_write);
 				return (1);
 			}
 

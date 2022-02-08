@@ -1,5 +1,7 @@
 #include "newheader.h"
 
+// Does it matter how late it dies, in case it should die?
+
 
 long long milisecs_passed(t_philo *ph)
 {
@@ -11,6 +13,34 @@ long long milisecs_passed(t_philo *ph)
 	milisecs = milisecs - ph->d->startofsession;
 	return (milisecs);
 }
+
+
+void	message(t_philo *ph, char *str)
+{
+	pthread_mutex_lock(&ph->mutex_print);
+	printf("%lld %d %s\n", milisecs_passed(ph), ph->id, str);
+	pthread_mutex_unlock(&ph->mutex_print);
+}
+
+
+void	free_all(t_philo *ph)
+{
+	int	i;
+
+	pthread_mutex_destroy(&ph->mutex_time);
+	pthread_mutex_destroy(&ph->mutex_print);
+	i = 0;
+	while (i < ph->d->nrfilos)
+	{
+		pthread_mutex_destroy(&ph->d->mutex_spoon[i]);
+		i++;
+	}
+
+	free(ph->d->mutex_spoon);
+	free(ph->d);
+	free(ph);
+}
+
 
 
 int timer(t_philo *ph)
@@ -36,10 +66,11 @@ int timer(t_philo *ph)
 
 			if (current_time > ph->d->time_to_die)
 			{
-				printf("%lld %d has died\n", milisecs_passed(ph), ph[i].id);
+				//printf("%lld %d has died\n", milisecs_passed(ph), ph[i].id);
+				message(&ph[i], "has died");
+				free_all(ph);
 				return (1);
 			}
-
 			pthread_mutex_unlock(&ph[i].mutex_time);
 		}
 	}
@@ -66,7 +97,8 @@ void *start_philo(void *philo)
 		pthread_mutex_lock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
 
 		// Maybe add separate locks for each writting
-		printf("%lld %d is eating\n", milisecs_passed(ph), ph->id);
+		//printf("%lld %d is eating\n", milisecs_passed(ph), ph->id);
+		message(ph, "is eating");
 
 		pthread_mutex_lock(&ph->mutex_time);
 		gettimeofday(&t, NULL);
@@ -79,9 +111,12 @@ void *start_philo(void *philo)
 		pthread_mutex_unlock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
 	
 		//printf("%lld %d is sleeping\n", milisecs_passed(ph), ph->id);
+		//message(ph, "is sleeping");
 		usleep(ph->d->time_to_sleep * 1000);
 	
 		//printf("%lld %d is thinking\n", milisecs_passed(ph), ph->id);
+		//message(ph, "is thinking");
+
 	}
 	return (0);
 }
@@ -93,8 +128,6 @@ int main(int argc, char **argv)
 	int		i;
 	t_philo	*philo_struct;
 	t_data	*data;
-
-
 	
 	// save arguments into data ///////////////////////////////
 	if ((data = check_and_save_arguments(argc, argv)) == NULL)
@@ -109,7 +142,7 @@ int main(int argc, char **argv)
 	{
 		philo_struct[i].d = data;
 		philo_struct[i].id = i;
-		philo_struct[i].newtimetodie = 0; // ????? 
+		//philo_struct[i].newtimetodie = 0; // ????? 
 		i++;
 		// MISSING newtimetodie, IS DEFINED THEIN LOOP start_threads
 		// BECAUSE THE VALUE IS HERE NOT KNOWN YET
@@ -117,7 +150,9 @@ int main(int argc, char **argv)
 
 
 	// init mutexes //////////////////////////////////////////
-	pthread_mutex_init(&philo_struct->mutex_time, NULL); // WITHOUT & ???
+	pthread_mutex_init(&philo_struct->mutex_time, NULL);
+		// check error
+	pthread_mutex_init(&philo_struct->mutex_print, NULL);
 		// check error
 	i = 0;
 	data->mutex_spoon = malloc(sizeof(pthread_mutex_t) * data->nrfilos);
