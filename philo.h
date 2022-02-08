@@ -24,6 +24,7 @@ typedef struct s_data
 	//long int			*deadlines;
 	int					*old_times_eaten;
 	int					*new_times_eaten;
+	unsigned long long	startofsession;
 } t_data;
 
 typedef struct s_philosopher
@@ -32,18 +33,18 @@ typedef struct s_philosopher
 	int					philo_id;
 	pthread_t			philo_thread;
 	//pthread_t			timer_thread;
-	pthread_mutex_t		mutex_time;
+	pthread_mutex_t		mutex_time;		// HOW IS THIS USED ???
 	unsigned long long	time_started_eating;
 	unsigned long		deadline;
+	unsigned long long	newtimetodie;
 	struct timeval		start;			// WHAT IS THIS ??
-	unsigned long long	startofsession;
 } t_philo;
 
 int				check_and_save_arguments(int argc, char *argv[], t_data *d);
-int				make_arrays_and_philos(t_data *d);
+int				init_mutexes(t_data *d, t_philo *philo);
 void			mysleep(int milisecs);
-//unsigned long	milisecs_passed(t_philo *ph);
-unsigned long	milisecs_passed(unsigned long long startofsession);
+unsigned long	milisecs_passed(t_philo *ph);
+//unsigned long	milisecs_passed(unsigned long long startofsession);
 
 
 

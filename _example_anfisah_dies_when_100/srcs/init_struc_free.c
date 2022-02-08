@@ -6,7 +6,7 @@
 /*   By: ccoto <ccoto@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/13 13:58:44 by ccoto         #+#    #+#                 */
-/*   Updated: 2022/02/05 12:34:07 by jaka          ########   odam.nl         */
+/*   Updated: 2022/02/08 10:18:49 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_main	*init_main(int ac, char **av)
 {
 	t_main	*main;
-
+	
 	main = malloc(sizeof(t_main));
 	if (!main)
 	{
@@ -26,7 +26,8 @@ t_main	*init_main(int ac, char **av)
 	main->time_to_die = ft_atoi(av[2]);
 	main->time_to_eat = ft_atoi(av[3]);
 	main->time_to_sleep = ft_atoi(av[4]);
-	main->time_to_die += 4;		// IS THIS CHEATING ???
+//	main->time_to_die += 4;		// IS THIS CHEATING ???
+	main->time_to_die += 0;		// IS THIS CHEATING ???
 	main->meals = 0;
 	if (ac == 6)
 		main->nb_time_to_eat = ft_atoi(av[5]);

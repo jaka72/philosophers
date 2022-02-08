@@ -6,7 +6,7 @@
 /*   By: ccoto <ccoto@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/12 10:57:56 by ccoto         #+#    #+#                 */
-/*   Updated: 2022/02/06 09:36:28 by jaka          ########   odam.nl         */
+/*   Updated: 2022/02/07 16:33:40 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,32 @@ int	ft_atoi(const char *str)
 
 long long	timestamp(t_philo *philo)
 {
-	gettimeofday(&philo->time, NULL);
-	philo->time_in_mill = philo->time.tv_sec * 1000
-		+ philo->time.tv_usec / 1000;
-	philo->time_in_mill -= philo->main->start_time;
+	struct timeval		time;
+	long long	timeinmill;
+	
+	gettimeofday(&time, NULL);
+	timeinmill = time.tv_sec * 1000
+		+ time.tv_usec / 1000;
+	timeinmill = timeinmill - philo->main->start_time;
 	
 	//printf("timestamp    %lld\n", philo->main->start_time);
 	//printf("time in mill %lld\n", philo->time_in_mill);
-	return (philo->time_in_mill);
+	return (timeinmill);
 }
+
+
+// MINE SEEMS TO WORK JUST FINE
+// long long	timestamp(t_philo *ph)
+// {
+// 	unsigned long 		timestamp;
+// 	unsigned long long	newtime; // maybe it is enough just long int ???
+// 	struct timeval		t;
+// 	gettimeofday(&t, NULL);
+// 	newtime = t.tv_sec * 1000 + t.tv_usec / 1000;
+// 	timestamp = newtime - ph->main->start_time;
+// 	return (timestamp);
+// }
+
 
 int	ft_isdigit(int c)
 {

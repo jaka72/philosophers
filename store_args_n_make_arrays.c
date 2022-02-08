@@ -8,6 +8,7 @@ int check_and_save_arguments(int argc, char *argv[], t_data *d)
 		return (1);
 	}
 	// TO ADD: CHECK IF ALL ARGUMENTS ARE ONLY DIGITS!
+
 	d->nrfilos = atoi(argv[1]);
 	d->time_to_die = atoi(argv[2]);
 	d->time_to_eat = atoi(argv[3]);
@@ -34,11 +35,15 @@ int check_and_save_arguments(int argc, char *argv[], t_data *d)
 }
 
 
-int	make_arrays_and_philos(t_data *d)
+int	init_mutexes(t_data *d, t_philo *ph)
 {
 	int	i;
 
+	pthread_mutex_init(&ph->mutex_time, NULL);
+		// check error
+
 	d->fork_mutex = malloc(sizeof(pthread_mutex_t) * d->nrfilos);
+	
 	d->old_times_eaten = malloc(sizeof(int) * d->nrfilos);
 	d->new_times_eaten = malloc(sizeof(int) * d->nrfilos);
 	//d->time_started_eating = malloc(sizeof(long int) * d->nrfilos);
@@ -47,7 +52,7 @@ int	make_arrays_and_philos(t_data *d)
 	i = 0;
 	while (i < d->nrfilos)
 	{
-		pthread_mutex_init(&d->fork_mutex[i], NULL);
+		pthread_mutex_init(&d->fork_mutex[i], NULL); // THE SAME
 			// check error
 		d->old_times_eaten[i] = 0;
 		d->new_times_eaten[i] = 0;

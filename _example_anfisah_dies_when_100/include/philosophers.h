@@ -6,7 +6,7 @@
 /*   By: ccoto <ccoto@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/12 10:57:31 by ccoto         #+#    #+#                 */
-/*   Updated: 2022/02/06 09:19:29 by jaka          ########   odam.nl         */
+/*   Updated: 2022/02/07 16:56:47 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_main
 	int					time_to_sleep;
 	int					nb_time_to_eat;
 	int					meals;
-	struct timeval		start;
+	//struct timeval		start;
 	unsigned long long	start_time;		// start of session
 	pthread_mutex_t		*mutex_fork;
 	pthread_mutex_t		mutex_write;	// WHAT IS THIS ???
@@ -39,8 +39,8 @@ typedef struct s_philo
 	int					pos;
 	int					nb_meals;
 	
-	struct timeval		time;
-	unsigned long long	time_in_mill;
+	//struct timeval		time;		// IN timestamp(), SAVES TIME ELAPSED SINCE STARTOFSESSION
+	//unsigned long long	time_in_mill;
 	unsigned long long	start_ttd;
 	
 	pthread_mutex_t		timemutex;

@@ -6,7 +6,7 @@
 /*   By: ccoto <ccoto@student.42.fr>                  +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/12 10:57:39 by ccoto         #+#    #+#                 */
-/*   Updated: 2022/02/06 09:24:16 by jaka          ########   odam.nl         */
+/*   Updated: 2022/02/08 08:32:25 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	init_mutex(t_main *main, t_philo *philo)
 		printf("mutex_fork : error malloc");
 		return (1);
 	}
+	
 	i = 0;
 	while (i < main->nb_philo)
 	{
@@ -74,14 +75,48 @@ int	init_mutex(t_main *main, t_philo *philo)
 
 
 
+// int	create_threads(t_main *main, t_philo *philo)
+// {
+// 	int	i;
+// 	int	error;
+
+// 	i = 0;
+// 	gettimeofday(&main->start, NULL);
+// 	main->start_time = main->start.tv_sec * 1000 + main->start.tv_usec / 1000;
+// 	while (i < main->nb_philo)
+// 	{
+// 		init_philo(philo, main, &i);
+// 		error = pthread_create(&philo[i].thread, NULL, &philo_life, &philo[i]);
+// 		if (error != 0)
+// 		{
+// 			printf("Thread can't be created\n");
+// 			return (1);
+// 		}
+// 		error = pthread_detach(philo[i].thread);	// WHAT IS THIS
+// 		if (error != 0)
+// 		{
+// 			printf("Impossible to detach threads\n");
+// 			return (1);
+// 		}
+// 		error = pthread_join(philo[i].thread, NULL); // JOINING IN THE SAME LOOP ???
+// 		// here no error check needed ???
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+
+
+
 int	create_threads(t_main *main, t_philo *philo)
 {
 	int	i;
 	int	error;
+	struct timeval time;
 
 	i = 0;
-	gettimeofday(&main->start, NULL);
-	main->start_time = main->start.tv_sec * 1000 + main->start.tv_usec / 1000;
+	gettimeofday(&time, NULL);
+	main->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 	while (i < main->nb_philo)
 	{
 		init_philo(philo, main, &i);
@@ -91,21 +126,18 @@ int	create_threads(t_main *main, t_philo *philo)
 			printf("Thread can't be created\n");
 			return (1);
 		}
-		error = pthread_detach(philo[i].thread);	// WHAT IS THIS
+		error = pthread_detach(philo[i].thread);
 		if (error != 0)
 		{
 			printf("Impossible to detach threads\n");
 			return (1);
 		}
-		error = pthread_join(philo[i].thread, NULL); // JOINING IN THE SAME LOOP ???
+		error = pthread_join(philo[i].thread, NULL); // WHY JOIN, AFTER DETACH ???
 		// here no error check needed ???
 		i++;
 	}
 	return (0);
 }
-
-
-
 
 
 
@@ -144,12 +176,21 @@ int	main(int ac, char **av)
 		printf("Error arguments: bad number of arguments\n");
 		return (1);
 	}
+	//main = NULL;
+	// IF YOU WANT TO PASS A STRUCT AS AN ARGUMENT, IT NEEDS TO BE MALLOCED BEFOREHAND
+	// IT CANNOT BE MALLOCED INSIDE THE FUNCTION, INTO WHICH IT WAS PASSED !
 	main = init_main(ac, av);
+	//init_main(ac, av, main);
+
+	printf(" is it saved? time to eat %d\n", main->time_to_eat);
+
 	if (main == NULL)
 		return (1);
 	if (parse_arg(av, main) == 1)
 		return (1);
 	philo = malloc(sizeof(t_philo) * main->nb_philo);
+		// No error check ???
+
 	if (philosophers(main, philo) == 1)
 		return (1);
 	return (0);

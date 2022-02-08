@@ -95,29 +95,29 @@ void	mysleep(int milisecs)
 // }
 
 
-unsigned long	milisecs_passed(unsigned long long startofsession)
+unsigned long	milisecs_passed(t_philo *ph)
 {
 	unsigned long 		timestamp;
 	unsigned long long	newtime; // maybe it is enough just long int ???
 	struct timeval		t;
 
 
-
 	//pthread_mutex_lock(&ph->mutex_time);
 
 	gettimeofday(&t, NULL);
+	//pthread_mutex_unlock(&ph->mutex_time);
+
 	//a = t.tv_sec * 1000000 + t.tv_usec;
 	newtime = t.tv_sec * 1000 + t.tv_usec / 1000;
 	//timestamp = (a - ph->d->time_start_of_session) / 1000;
 	//timestamp = newtime - ph->d->time_start_of_session;
-	timestamp = newtime - startofsession;
+	timestamp = newtime - ph->d->startofsession;
 	
 	// printf(" ....... newtime:             %lld\n", newtime);
 	// printf(" ....... start_of_session:    %lld\n", startofsession);
 	// printf(" ....... timestamp:           %ld\n", timestamp);
 	
 	
-	//pthread_mutex_unlock(&ph->mutex_time);
 
 	return (timestamp);
 }
