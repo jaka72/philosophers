@@ -7,6 +7,11 @@
 //   how can you than use mutex_lock in this function with this philo ??
 //				mutex_lock(&philo->mutex_time)  with or without & ???
 
+
+// MYSLEEP() CAUSES THAT TIME IS UPDATED, SO IT NEVER DIES IN CASE OF SHORT TIMETODIE
+// NOW WITH USLEEP() I GET floating point exeption, WHEN IT SHOULD DIE 4 310 200 200 
+// PROBABLY THERE IS ALSO ISSUE WITH TIMER - HOW DOES IT KNOW WHICH PHILOSOPHER IS BEING CHECKED ???
+
 long long milisecs_passed(t_philo *ph)
 {
 	struct timeval	t;
@@ -68,7 +73,11 @@ int timer(t_philo *ph)
 			pthread_mutex_lock(&ph[i].d->mutex_time);
 			gettimeofday(&t, NULL);
 			current_time = t.tv_sec * 1000 + t.tv_usec / 1000;
-			current_time = current_time - ph->new_start_time;
+			//current_time = current_time - ph->new_start_time;  // !!!!!!!!!!!!!!!!!!
+			current_time = current_time - ph[i].new_start_time;  // HERE SOMETHING NOT GOOD
+																 // 4 310 200 100  DIES AT 514 INSTEAD AT 311 !!!
+
+			//printf("Current time %lld \n", current_time);
 
 			if (current_time > ph->d->time_to_die)
 			{
@@ -81,6 +90,9 @@ int timer(t_philo *ph)
 	}
 	return (0);
 }
+
+
+
 
 
 
@@ -109,20 +121,20 @@ void *start_philo(void *philo)
 		pthread_mutex_unlock(&ph->d->mutex_time);
 
 		ph->new_start_time = t.tv_sec * 1000 + t.tv_usec / 1000; // !!!
-		//usleep(ph->d->time_to_eat * 1000);
-		mysleep(ph->d->time_to_eat, ph->new_start_time);
+		usleep(ph->d->time_to_eat * 1000);
+		//mysleep(ph->d->time_to_eat, ph->new_start_time);
 
 		pthread_mutex_unlock(&ph->d->mutex_spoon[ph->id]);
 		pthread_mutex_unlock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
 	
 		//printf("%lld %d is sleeping\n", milisecs_passed(ph), ph->id);
 		//message(ph, "is sleeping");
-		//usleep(ph->d->time_to_sleep * 1000);
-		pthread_mutex_lock(&ph->d->mutex_time);// WHY THIS NEEDDS TO BE LOCKED IF IT IS ALREADY INSIDE LOCKS ???
-		gettimeofday(&t, NULL);
-		pthread_mutex_unlock(&ph->d->mutex_time);
-		ph->new_start_time = t.tv_sec * 1000 + t.tv_usec / 1000; // !!!!!!!!!!!!
-		mysleep(ph->d->time_to_sleep, ph->new_start_time);
+		usleep(ph->d->time_to_sleep * 1000);
+		// pthread_mutex_lock(&ph->d->mutex_time);// WHY THIS NEEDDS TO BE LOCKED IF IT IS ALREADY INSIDE LOCKS ???
+		// gettimeofday(&t, NULL);
+		// pthread_mutex_unlock(&ph->d->mutex_time);
+		// ph->new_start_time = t.tv_sec * 1000 + t.tv_usec / 1000; // !!!!!!!!!!!!
+		// mysleep(ph->d->time_to_sleep, ph->new_start_time);
 	
 		//printf("%lld %d is thinking\n", milisecs_passed(ph), ph->id);
 		//message(ph, "is thinking");
@@ -200,6 +212,8 @@ int main(int argc, char **argv)
 	//printf("b starofsession %lld \n", philo_struct[3].d->startofsession);
 
 	
+
+
 	i = 0;
 	while (i < data->nrfilos)
 	{
@@ -210,6 +224,7 @@ int main(int argc, char **argv)
 			return (1);
 		} 
 		if (pthread_detach(philo_struct[i].thread) != 0)
+		if (pthread_join(philo_struct[i].thread, NULL) != 0)
 		{
 			printf("Error detaching a thread\n");
 			return (1);
@@ -219,6 +234,21 @@ int main(int argc, char **argv)
 
 	if (timer(philo_struct) == 1)
 		return (1);
+
+	// i = 0;
+	// while (i < data->nrfilos)
+	// {
+	// 	if (pthread_join(philo_struct[i].thread, NULL) != 0)
+	// 	{
+	// 		printf("Error joining a thread\n");
+	// 		return (1);
+	// 	}
+	// 	i++;
+	// }
+
+
+	// if (timer(philo_struct) == 1)
+	// 	return (1);
 
 
 	return (0);
