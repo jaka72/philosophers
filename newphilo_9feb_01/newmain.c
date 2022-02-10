@@ -1,51 +1,5 @@
 #include "newheader.h"
 
-// Does it matter how late it dies, in case it should die?
-
-
-// What if a struct philo ph[i] is not passed as address into function, 
-//   how can you than use mutex_lock in this function with this philo ??
-//				mutex_lock(&philo->mutex_time)  with or without & ???
-
-
-// MYSLEEP() CAUSES THAT TIME IS UPDATED, SO IT NEVER DIES IN CASE OF SHORT TIMETODIE
-// NOW WITH USLEEP() I GET floating point exeption, WHEN IT SHOULD DIE 4 310 200 200 
-// PROBABLY THERE IS ALSO ISSUE WITH TIMER - HOW DOES IT KNOW WHICH PHILOSOPHER IS BEING CHECKED ???
-
-long long milisecs_passed(t_philo *ph)
-{
-	struct timeval	t;
-	long long		milisecs;
-
-
-	//pthread_mutex_lock(&ph->d->mutex_time);
-	gettimeofday(&t, NULL);
-	milisecs = t.tv_sec * 1000 + t.tv_usec / 1000;
-	milisecs = milisecs - ph->d->startofsession;
-	//pthread_mutex_lock(&ph->d->mutex_time);
-
-	return (milisecs);
-}
-
-
-void	message(t_philo *ph, char *str, unsigned long long time)
-{
-	unsigned long long	mspassed;
-
-	pthread_mutex_lock(&ph->d->mutex_print);
-	//printf("%lld %d %s\n", milisecs_passed(ph), ph->id + 1, str);
-	//printf("%lld %d %s ... deadline %lld\n", milisecs_passed(ph), ph->id + 1, str, milisecs_passed(ph) + ph->d->time_to_die);
-	
-	mspassed = time - ph->d->startofsession;
-	
-	//printf("%lld %d %s ... deadline %lld\n", milisecs_passed(ph), ph->id + 1, str, milisecs_passed(ph) + ph->d->time_to_die);
-	printf("%lld %d %s ... deadline %lld\n", mspassed, ph->id, str, mspassed + ph->d->time_to_die);
-	
-	
-	
-	
-	pthread_mutex_unlock(&ph->d->mutex_print);
-}
 
 
 void	free_all(t_philo *ph) // HERE PROBABLY NEEDED PROTECTION FROM DOUBLE FREE !!

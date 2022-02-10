@@ -1,0 +1,13 @@
+
+
+// Does it matter how late it dies, in case it should die?
+
+
+// What if a struct philo ph[i] is not passed as address into function, 
+//   how can you than use mutex_lock in this function with this philo ??
+//				mutex_lock(&philo->mutex_time)  with or without & ???
+
+
+// MYSLEEP() CAUSES THAT TIME IS UPDATED, SO IT NEVER DIES IN CASE OF SHORT TIMETODIE
+// NOW WITH USLEEP() I GET floating point exeption, WHEN IT SHOULD DIE 4 310 200 200 
+// PROBABLY THERE IS ALSO ISSUE WITH TIMER - HOW DOES IT KNOW WHICH PHILOSOPHER IS BEING CHECKED ???

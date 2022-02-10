@@ -31,9 +31,11 @@ typedef struct s_philosopher
 	pthread_t			thread;
 }	t_philo;
 
-t_data	*check_and_save_arguments(int argc, char *argv[]);
-void	mysleep(int milisecs, long long new_start);
-int		ft_isdigit(int c);
+t_data		*check_and_save_arguments(int argc, char *argv[]);
+void		mysleep(int milisecs, long long new_start);
+int			ft_isdigit(int c);
+long long	milisecs_passed(t_philo *ph);
+void		message(t_philo *ph, char *str, unsigned long long time);
 
 
 
