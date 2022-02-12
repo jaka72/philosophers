@@ -1,18 +1,15 @@
 #include "newheader.h"
 
-t_data	*check_and_save_arguments(int argc, char *argv[])
+int		check_arguments(int argc, char **argv)
 {
-	int		i;
-	int		j;
-	t_data	*d;
+	int	i;
+	int	j;
 
 	if (argc != 5 && argc != 6)
 	{
 		printf("Error nr arguments\n");
-		return (NULL);
+		return (1);
 	}
-	
-	// TO ADD: CHECK IF ALL ARGUMENTS ARE ONLY DIGITS!
 	i = 1;
 	while (i < argc)
 	{
@@ -22,23 +19,17 @@ t_data	*check_and_save_arguments(int argc, char *argv[])
 			if (ft_isdigit(argv[i][j]) == 0)
 			{
 				printf("Error: arguments not only digits\n");
-				return (NULL);	
+				return (1);	
 			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
+}
 
-
-
-	d = malloc(sizeof(t_data));
-	if (d == NULL)
-	{
-		printf("Error mallocing data struct\n");
-		return (NULL);
-	}
-
-
+t_data	*store_arguments(t_data *d, int argc, char **argv)
+{
 	d->nrfilos = atoi(argv[1]);
 	d->time_to_die = atoi(argv[2]);
 	//d->time_to_die += 4;
@@ -62,5 +53,22 @@ t_data	*check_and_save_arguments(int argc, char *argv[])
 			return (NULL);
 		}
 	}
+	return (d);
+}
+
+t_data	*check_and_save_arguments(int argc, char *argv[])
+{
+	t_data	*d;
+
+	if (check_arguments(argc, argv) == 1)
+		return (NULL);
+
+	d = malloc(sizeof(t_data));
+	if (d == NULL)
+	{
+		printf("Error mallocing data struct\n");
+		return (NULL);
+	}
+	d = store_arguments(d, argc, argv);
 	return (d);
 }

@@ -27,15 +27,19 @@ typedef struct s_philosopher
 	t_data				*d;
 	int					id;
 	unsigned long long	new_start_time;
-	unsigned long long	deadline;
+	long long			deadline;
 	pthread_t			thread;
 }	t_philo;
 
 t_data		*check_and_save_arguments(int argc, char *argv[]);
-void		mysleep(int milisecs, long long new_start);
+void		mysleep(int milisecs, long long time);
 int			ft_isdigit(int c);
 long long	milisecs_passed(t_philo *ph);
 void		message(t_philo *ph, char *str, unsigned long long time);
+void		free_all(t_philo *ph);
+int			timer(t_philo *ph);
+long long	get_time(t_philo *ph);
+//int			has_died(t_philo *ph, long long current_time, long long new_start);
 
 
 

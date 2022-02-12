@@ -10,6 +10,7 @@ FLAGS 			=	-Wall -Wextra -Werror
 OBJ_DIR 		=	obj_dir
 C_FILES_MAIN	=	newmain.c \
 					newinit.c \
+					timer.c \
 					newutils.c
 
 OBJ_FILES	= $(patsubst %, $(OBJ_DIR)/%, $(C_FILES_MAIN:.c=.o))

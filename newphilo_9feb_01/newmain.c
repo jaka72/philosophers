@@ -2,271 +2,166 @@
 
 
 
-void	free_all(t_philo *ph) // HERE PROBABLY NEEDED PROTECTION FROM DOUBLE FREE !!
-{
-	int	i;
-
-	pthread_mutex_destroy(&ph->d->mutex_time);
-	pthread_mutex_destroy(&ph->d->mutex_print);
-	i = 0;
-	while (i < ph->d->nrfilos)
-	{
-		pthread_mutex_unlock(&ph->d->mutex_spoon[i]);
-		pthread_mutex_destroy(&ph->d->mutex_spoon[i]);
-		i++;
-	}
-	free(ph->d->mutex_spoon);
-	free(ph->d);
-	free(ph);
-}
-
-
-
-int	has_died(t_philo *ph, unsigned long long current_time, unsigned long long new_start)
-{
-	//printf("  current %lld\n  newstart %lld\n", current_time, ph->new_start_time);
-
-
-	//if ( (current_time - ph->new_start_time)  > ph->d->time_to_die)
-	if (current_time > ph->deadline)
-	//if (current_time > (ph->new_start_time + ph->d->time_to_die))
-	{
-		pthread_mutex_lock(&ph->d->mutex_print);
-		//message(ph, "has died");
-		//printf("     current time %lld,   newstart %lld\n", current_time, new_start);
-		printf("     current time %lld,   deadline %lld, diff %lld\n", current_time - ph->d->startofsession, \
-					ph->deadline - ph->d->startofsession, ph->deadline - current_time);
-		printf("     current time - newstart = %lld\n", current_time - new_start);
-		printf("%lld %d has died\n", milisecs_passed(ph), ph->id);
-		pthread_mutex_unlock(&ph->d->mutex_print);
-
-		//free_all(ph);
-		return (1);
-	}
-	return (0);
-}
-
-
-int timer(t_philo *ph)
-{
-	int					i;
-	struct timeval		t;
-	unsigned long long	current_time;
-
-	//ph->d->time_to_die += 8;
-	while (1)
-	{
-		i = 0;
-		usleep(2000);
-		while (i < ph->d->nrfilos)
-		{
-			pthread_mutex_lock(&ph[i].d->mutex_time);
-			gettimeofday(&t, NULL);
-			current_time = t.tv_sec * 1000 + t.tv_usec / 1000;
-			//current_time = current_time - ph->new_start_time;  // !!!!!!!!!!!!!!!!!!
-			
-			
-			//current_time = current_time - ph[i].new_start_time;
-
-			//printf(" %d", ph[i].id);
-
-			// if (current_time > ph->d->time_to_die)
-			// {
-			// 	//pthread_mutex_lock(&ph[i].d->mutex_print);
-			// 	message(&ph[i], "has died");
-			// 	//pthread_mutex_unlock(&ph[i].d->mutex_print);
-
-			// 	//free_all(ph);  // here maybe too early to free ????
-			// 	return (1);
-			// }
-
-			if (has_died(&ph[i], current_time, ph[i].new_start_time) == 1)
-				return (1);
-
-			pthread_mutex_unlock(&ph[i].d->mutex_time);
-			i++;	 // THIS WAS MISSING !!!!!
-		}
-	}
-	return (0);
-}
-
-
-/*
-0 wait			1 wait			2
-1 continue		2 continue		4	
-2 wait			3 wait			1
-3 continue		4 continue		3
-*/
-
-
-
-
-
-
 void *start_philo(void *philo)
 {
 	t_philo			*ph;
-	struct timeval	t;
-	unsigned long long	time;
+	long long	time;
 
 	ph = philo;
-	if (ph->id % 2 == 0)
-	{
-		//printf("     %d is waiting\n", ph->id);
-		usleep(2000);
-	} else {
-		; //printf("     %d continue\n", ph->id);
-	}
-
+//	if (ph->id % 2 == 0)
+//		usleep(2000);
 	while (1)
 	{
-		//printf("        a%d", ph->id);
 		pthread_mutex_lock(&ph->d->mutex_spoon[ph->id]);
-		//printf("  b%d", ph->id);
+		// printf("  id%d after A),   %lld\n", ph->id, get_time(ph) - ph->new_start_time);
+		message(ph, "has taken fork", get_time(ph));
 		pthread_mutex_lock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
-		//printf("  c%d", ph->id);
-
-		// SHALL I PUT THE MESSAGE INSIDE LOCKS?  TO ENSURE THE RIGHT ORDER
-		// message(ph, "is eating");
-
-		pthread_mutex_lock(&ph->d->mutex_time);// WHY THIS NEEDDS TO BE LOCKED IF IT IS ALREADY INSIDE LOCKS ???
-		gettimeofday(&t, NULL);
-		pthread_mutex_unlock(&ph->d->mutex_time);
-		//printf("  d%d", ph->id);
-
-		//ph->new_start_time = t.tv_sec * 1000 + t.tv_usec / 1000; // !!!
-
-		time = t.tv_sec * 1000 + t.tv_usec / 1000;
-
+		// printf("  id%d after B)    %lld\n", ph->id, get_time(ph) - ph->new_start_time);
+		message(ph, "has taken fork", get_time(ph));
+		
+		time = get_time(ph);
+		ph->new_start_time = time;
 		ph->deadline = time + ph->d->time_to_die;
-
-		//printf("  e%d\n", ph->id);
-		//printf("first deadline %d  %lld\n", ph->id + 1, ph->deadline - ph->d->startofsession);
 		message(ph, "is eating", time);
 
 		usleep(ph->d->time_to_eat * 1000);
-		//mysleep(ph->d->time_to_eat, ph->new_start_time);
-
+		//mysleep(ph->d->time_to_sleep, time);
 		pthread_mutex_unlock(&ph->d->mutex_spoon[ph->id]);
 		pthread_mutex_unlock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
-	
-		//printf("%lld %d is sleeping\n", milisecs_passed(ph), ph->id);
-		//message(ph, "is sleeping");
+		time = get_time(ph);
+		//message(ph, "is sleeping", time);
 		usleep(ph->d->time_to_sleep * 1000);
-		// pthread_mutex_lock(&ph->d->mutex_time);// WHY THIS NEEDDS TO BE LOCKED IF IT IS ALREADY INSIDE LOCKS ???
-		// gettimeofday(&t, NULL);
-		// pthread_mutex_unlock(&ph->d->mutex_time);
-		// ph->new_start_time = t.tv_sec * 1000 + t.tv_usec / 1000; // !!!!!!!!!!!!
-		// mysleep(ph->d->time_to_sleep, ph->new_start_time);
-	
-		//printf("%lld %d is thinking\n", milisecs_passed(ph), ph->id);
-		//message(ph, "is thinking");
-
+		//mysleep(ph->d->time_to_sleep, time);
+		time = get_time(ph);
+		//message(ph, "is thinking", time);
 	}
 	return (0);
 }
 
 
 
-int main(int argc, char **argv)
+int	malloc_spoons(t_data *d)
 {
-	int		i;
-	t_philo	*philo_struct;
-	t_data	*data;
-	
-	// save arguments into data ///////////////////////////////
-	if ((data = check_and_save_arguments(argc, argv)) == NULL) // IS THIS MULTIPLE OPERATIONS ???
-		return (1);
+	int	i;
 
-	
-	// save data into philo ///////////////////////////////////
-	philo_struct = malloc(sizeof(t_philo) * data->nrfilos);
-	if (philo_struct == NULL)
-	{
-		printf("Error initializing a mutex\n");
-		return (1);
-	} 
-	i = 0;
-	while (i < data->nrfilos)
-	{
-		philo_struct[i].d = data;
-		philo_struct[i].id = i;
-		i++;
-	}
-
-
-	// init mutexes //////////////////////////////////////////
-	if (pthread_mutex_init(&philo_struct->d->mutex_time, NULL) != 0)
-	{
-		printf("Error creating a thread\n"); // SHOULD HERE THINGS BE FREED ????
-		return (1);
-	} 
-
-	if (pthread_mutex_init(&philo_struct->d->mutex_print, NULL) != 0)
-	{
-		printf("Error initializing a mutex\n");
-		return (1);
-	} 
-
-	data->mutex_spoon = malloc(sizeof(pthread_mutex_t) * data->nrfilos);
-	if (data->mutex_spoon == NULL)
+	d->mutex_spoon = malloc(sizeof(pthread_mutex_t) * d->nrfilos);
+	if (d->mutex_spoon == NULL)
 	{
 		printf("Error with mallocing\n");
 		return (1);
 	}
-
 	i = 0;
-	while (i < data->nrfilos)
+	while (i < d->nrfilos)
 	{
-		if (pthread_mutex_init(&data->mutex_spoon[i], NULL) != 0)
+		if (pthread_mutex_init(&d->mutex_spoon[i], NULL) != 0)
 		{
 			printf("Error initializing a mutex\n");
 			return (1);
 		} 
 		i++;
 	}
+	return (0);
+}
 
-
-	// start threads /////////////////////////////////////////
-	struct timeval	t;
-	gettimeofday(&t, NULL);
-	data->startofsession = t.tv_sec * 1000 + t.tv_usec / 1000;
-	//printf("a startofsession %lld \n", philo_struct->d->startofsession);
-	//printf("b starofsession %lld \n", philo_struct[3].d->startofsession);
-
-	
-
+int	initiate_mutexes(t_data *data, t_philo *ph)
+{
+	int	i;
 
 	i = 0;
 	while (i < data->nrfilos)
 	{
-		philo_struct[i].new_start_time = data->startofsession;
-		philo_struct[i].deadline = data->startofsession + philo_struct[i].d->time_to_die;
+		ph[i].d = data;
+		ph[i].id = i;
+		i++;
+	}
+	if (pthread_mutex_init(&ph->d->mutex_time, NULL) != 0)
+	{
+		printf("Error creating a thread\n"); // SHOULD HERE THINGS BE FREED ????
+		return (1);
+	} 
+	if (pthread_mutex_init(&ph->d->mutex_print, NULL) != 0)
+	{
+		printf("Error initializing a mutex\n");
+		return (1);
+	} 
+	if (malloc_spoons(data) == 1)
+		return (1);
+	return (0);
+}
 
-		//printf("Create thread %d\n", philo_struct[i].id);
 
-		if (pthread_create(&philo_struct[i].thread, NULL, &start_philo, (void*)&philo_struct[i]) != 0)
+int	start_threads(t_data *d, t_philo *ph)
+{
+	int	i;
+
+	i = 0;	// EVERY EVEN ID //////////////////////
+	while (i < d->nrfilos)
+	{
+		//ph[i].new_start_time = d->startofsession;
+		ph[i].new_start_time = get_time(ph);
+		
+		//ph[i].deadline = d->startofsession + ph[i].d->time_to_die;
+		ph[i].deadline = ph[i].new_start_time + ph[i].d->time_to_die;
+		if (pthread_create(&ph[i].thread, NULL, &start_philo, (void*)&ph[i]) != 0)
 		{
 			printf("Error creating a thread\n");
 			return (1);
 		} 
-		if (pthread_detach(philo_struct[i].thread) != 0)
+		// if (pthread_detach(ph[i].thread) != 0)
+		// {
+		// 	printf("Error detaching a thread\n");
+		// 	return (1);
+		// }
+		//pthread_join(ph[i].thread, NULL);
+		usleep(10);
+		i += 2;
+	}
+
+
+	i = 1;	 	// EVERY ODD ID ///////////////////////
+	while (i < d->nrfilos)
+	{
+		//ph[i].new_start_time = d->startofsession;
+		ph[i].new_start_time = get_time(ph);
+		
+		//ph[i].deadline = d->startofsession + ph[i].d->time_to_die;
+		ph[i].deadline = ph[i].new_start_time + ph[i].d->time_to_die;
+		if (pthread_create(&ph[i].thread, NULL, &start_philo, (void*)&ph[i]) != 0)
 		{
-			printf("Error detaching a thread\n");
+			printf("Error creating a thread\n");
+			return (1);
+		} 
+		// if (pthread_detach(ph[i].thread) != 0)
+		// {
+		// 	printf("Error detaching a thread\n");
+		// 	return (1);
+		// }
+		//pthread_join(ph[i].thread, NULL);
+		usleep(10);
+		i += 2;
+	}
+
+
+	if (timer(ph) == 1)
+		return (1);
+
+
+	i = 0;
+	while (i < d->nrfilos)
+	{
+		if (pthread_detach(ph[i].thread) != 0)
+		{
+			printf("Error joining a thread\n");
 			return (1);
 		}
-		//pthread_join(philo_struct[i].thread, NULL);
-		//usleep(1000);
 		i++;
 	}
 
-	if (timer(philo_struct) == 1)
-		return (1);
 
 	// i = 0;
-	// while (i < data->nrfilos)
+	// while (i < d->nrfilos)
 	// {
-	// 	if (pthread_join(philo_struct[i].thread, NULL) != 0)
+	// 	if (pthread_join(ph[i].thread, NULL) != 0)
 	// 	{
 	// 		printf("Error joining a thread\n");
 	// 		return (1);
@@ -274,10 +169,48 @@ int main(int argc, char **argv)
 	// 	i++;
 	// }
 
+	return (0);
+}
+
+
+
+
+
+
+int main(int argc, char **argv)
+{
+	//int		i;
+	t_philo	*philo_struct;
+	t_data	*data;
+	struct timeval	t;
+	
+
+
+
+	data = check_and_save_arguments(argc, argv);
+	if (data == NULL)
+		return (1);
+	philo_struct = malloc(sizeof(t_philo) * data->nrfilos);
+	if (philo_struct == NULL)
+	{
+		printf("Error initializing a mutex\n");
+		return (1);
+	} 
+	if (initiate_mutexes(data, philo_struct) == 1)
+		return (1);
+	gettimeofday(&t, NULL);
+	data->startofsession = t.tv_sec * 1000 + t.tv_usec / 1000;
 
 	// if (timer(philo_struct) == 1)
 	// 	return (1);
 
+	start_threads(data, philo_struct);
 
+
+	//printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+
+	// if (timer(philo_struct) == 1)
+	// 	return (1);
 	return (0);
 }
+
