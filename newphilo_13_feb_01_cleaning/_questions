@@ -1,0 +1,47 @@
+
+Observations:
+When mutex init is created and it is now destroyed, it does not affect memomory or cause issues. 
+
+
+
+
+Questions:
+Does it matter after how many meals he dies, in case it should die?
+
+What is nr meals is 0? Should not start or ignore it?
+
+
+
+What if a struct philo ph[i] is not passed as address into function, 
+   how can you than use mutex_lock in this function with this philo ??
+				mutex_lock(&philo->mutex_time)  with or without & ???
+
+
+MYSLEEP() CAUSES THAT TIME IS UPDATED, SO IT NEVER DIES IN CASE OF SHORT TIMETODIE
+NOW WITH USLEEP() I GET floating point exeption, WHEN IT SHOULD DIE 4 310 200 200 
+PROBABLY THERE IS ALSO ISSUE WITH TIMER - HOW DOES IT KNOW WHICH PHILOSOPHER IS BEING CHECKED ???
+
+
+About 10 milisecs later message:
+	The subject that in case of death, message can have 10 milisecs delay.
+		tteat   200
+		ttsleep 200
+		ttd     600
+
+	started eating   at 1000,  deadline  1400
+	started sleeping at 1200
+	started thinking at 1400
+
+
+
+
+MALLOCS:
+data = malloc(sizeof(t_data));
+
+philo_struct = malloc(sizeof(t_philo) * data->nrfilos);
+
+d->mutex_forks = malloc(sizeof(pthread_mutex_t) * d->nrfilos);
+
+
+
+
