@@ -34,12 +34,12 @@ int	timer(t_philo *ph, t_data *d)
 		while (i < ph->d->nrfilos)
 		{
 			pthread_mutex_lock(&ph[i].d->mutex_time);
-			gettimeofday(&t, NULL);
+			gettimeofday(&t, NULL);			
 			current_time = t.tv_sec * 1000 + t.tv_usec / 1000;
 			if (has_died(&ph[i], current_time) == 1)
 			{
 				msg_and_free(ph, d, "", 1);
-				system("leaks philo");
+				//system("leaks philo");
 				return (1);
 			}
 			pthread_mutex_unlock(&ph[i].d->mutex_time);
