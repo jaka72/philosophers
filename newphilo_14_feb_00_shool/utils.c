@@ -5,6 +5,7 @@ long long	get_time(t_philo *ph)
 	struct timeval	t;
 	long long		time;
 
+	ph->id = ph->id;
 	pthread_mutex_lock(&ph->d->mutex_time);
 	gettimeofday(&t, NULL);
 	pthread_mutex_unlock(&ph->d->mutex_time);

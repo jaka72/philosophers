@@ -17,7 +17,7 @@ void	destroy_mutexes(t_philo *ph)
 
 void	free_all(t_philo *ph, t_data *d)
 {
-	destroy_mutexes(ph);
+//	destroy_mutexes(ph);
 	if (ph->d->mutex_forks != NULL)
 	{
 		free(d->mutex_forks);

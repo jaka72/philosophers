@@ -29,8 +29,10 @@ $(OBJ_DIR)/%.o: 	%.c
 
 $(NAME): $(OBJ_FILES)
 		@echo "$(BLU)\n - Making Philosophers Executable --- $(WHT)"
-#		gcc -fsanitize=thread -g $^ $(FLAGS) -pthread -o $(NAME)
-		gcc $^ $(FLAGS) -pthread -o $(NAME)
+		gcc -fsanitize=thread -g $^ $(FLAGS) -pthread -o $(NAME)
+#		gcc $^ $(FLAGS) -pthread -o $(NAME)
+
+# TSAN_OPTIONS=second_deadlock_stack=1    # ??????? No such file ???
 
 re:		fclean all
 
