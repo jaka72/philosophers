@@ -1,17 +1,15 @@
-
-GRN = \033[1;32m
-YEL = \033[0;33m
-BLU = \e[0;34m
-RED = \033[1;31m
+BLU = \033[0;34m
 WHT = \033[0m
 
 NAME 			=	philo
 FLAGS 			=	-Wall -Wextra -Werror
 OBJ_DIR 		=	obj_dir
 C_FILES_MAIN	=	main.c \
-					store_args_n_make_arrays.c \
-					utils.c
-					
+					init.c \
+					start_philo.c \
+					timer.c \
+					utils.c \
+					free.c
 
 OBJ_FILES	= $(patsubst %, $(OBJ_DIR)/%, $(C_FILES_MAIN:.c=.o))
 
@@ -31,7 +29,10 @@ $(OBJ_DIR)/%.o: 	%.c
 
 $(NAME): $(OBJ_FILES)
 		@echo "$(BLU)\n - Making Philosophers Executable --- $(WHT)"
-		gcc $^ $(FLAGS) -pthread -o $(NAME)
+		gcc -fsanitize=thread -g $^ $(FLAGS) -pthread -o $(NAME)
+#		gcc $^ $(FLAGS) -pthread -o $(NAME)
+
+# TSAN_OPTIONS=second_deadlock_stack=1    # ??????? No such file ???
 
 re:		fclean all
 
