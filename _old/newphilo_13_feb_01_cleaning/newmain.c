@@ -13,10 +13,17 @@ void *start_philo(void *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&ph->d->mutex_forks[ph->id]);
-		message(ph, "has taken a fork", get_time(ph));
 		//message_forkid(ph, "has taken a fork", get_time(ph), ph->id);  
 		pthread_mutex_lock(&ph->d->mutex_forks[(ph->id + 1) % ph->d->nrfilos]);
-		message(ph, "has taken a fork", get_time(ph));
+		time = get_time(ph);
+		ph->new_start_time = time;
+		ph->deadline = time + ph->d->time_to_die;
+		pthread_mutex_lock(&ph->d->mutex_print);
+		message(ph, "has taken a fork", time);
+		message(ph, "has taken a fork", time);
+		message(ph, "is eating", time);
+		pthread_mutex_unlock(&ph->d->mutex_print);
+
 		//message_forkid(ph, "has taken a fork", get_time(ph), ph->id + 1);
 
 		ph->d->count_meals++;
@@ -25,21 +32,26 @@ void *start_philo(void *philo)
 		//	ph->d->count_meal_rounds++;
 
 		
-		time = get_time(ph);
-		ph->new_start_time = time;
-		ph->deadline = time + ph->d->time_to_die;
-		message(ph, "is eating", time);
+		
 
 		usleep(ph->d->time_to_eat * 1000);
 		//mysleep(ph->d->time_to_sleep, time);
 		pthread_mutex_unlock(&ph->d->mutex_forks[ph->id]);
 		pthread_mutex_unlock(&ph->d->mutex_forks[(ph->id + 1) % ph->d->nrfilos]);
 		time = get_time(ph);
+
+		pthread_mutex_lock(&ph->d->mutex_print);
 		message(ph, "is sleeping", time);
+		pthread_mutex_unlock(&ph->d->mutex_print);
+
 		usleep(ph->d->time_to_sleep * 1000);
 		//mysleep(ph->d->time_to_sleep, time);
 		time = get_time(ph);
+
+		pthread_mutex_lock(&ph->d->mutex_print);
 		message(ph, "is thinking", time);
+		pthread_mutex_unlock(&ph->d->mutex_print);
+
 	}
 	return (0);
 }
@@ -205,14 +217,14 @@ int main(int argc, char **argv)
 	if (data == NULL)
 		return (1);
 	philo_struct = malloc(sizeof(t_philo) * data->nrfilos);
-//	if (philo_struct == NULL)
-//	{
+	if (philo_struct == NULL)
+	{
 		printf("Error mallocking philo struct\n");
-//		free(data);
-//		free(philo_struct);
+		free(data);
+		free(philo_struct);
 		free_all(philo_struct, data);
 		return (1);
-//	} 
+	} 
 
 
 

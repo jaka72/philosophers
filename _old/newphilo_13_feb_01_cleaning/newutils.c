@@ -43,10 +43,10 @@ void	message(t_philo *ph, char *str, unsigned long long time)
 {
 	unsigned long long	mspassed;
 
-	pthread_mutex_lock(&ph->d->mutex_print);
+//	pthread_mutex_lock(&ph->d->mutex_print);
 	mspassed = time - ph->d->startofsession;
 	printf("%lld %d %s\n", mspassed, ph->id + 1, str);
-	pthread_mutex_unlock(&ph->d->mutex_print);
+//	pthread_mutex_unlock(&ph->d->mutex_print);
 }
 
 // NOT USED ??????

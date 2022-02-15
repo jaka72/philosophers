@@ -115,7 +115,7 @@ int	initiate_mutexes(t_data *data, t_philo *ph)
 		//ph[i].deadline = get_time(ph) + ph[i].d->time_to_die;  // maybe this is causing delay ???
 		i++;
 	}
-	ph->error = 1;
+	ph->error = 0;
 	if (pthread_mutex_init(&ph->d->mutex_time, NULL) != 0)
 		ph->error = 1;
 	if (pthread_mutex_init(&ph->d->mutex_print, NULL) != 0)

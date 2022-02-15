@@ -114,11 +114,11 @@ void *start_philo(void *philo)
 		pthread_mutex_unlock(&ph->d->mutex_spoon[(ph->id + 1) % ph->d->nrfilos]);
 	
 		//printf("%lld %d is sleeping\n", milisecs_passed(ph), ph->id);
-		//message(ph, "is sleeping");
+		message(ph, "is sleeping");
 		usleep(ph->d->time_to_sleep * 1000);
 	
 		//printf("%lld %d is thinking\n", milisecs_passed(ph), ph->id);
-		//message(ph, "is thinking");
+		message(ph, "is thinking");
 
 	}
 	return (0);
