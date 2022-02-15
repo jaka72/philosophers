@@ -5,9 +5,10 @@ long long	get_time(t_philo *ph)
 	struct timeval	t;
 	long long		time;
 
-	pthread_mutex_lock(&ph->d->mutex_time);
+	ph->d = ph->d;
+//	pthread_mutex_lock(&ph->d->mutex_time);
 	gettimeofday(&t, NULL);
-	pthread_mutex_unlock(&ph->d->mutex_time);
+//	pthread_mutex_unlock(&ph->d->mutex_time);
 	time = t.tv_sec * 1000 + t.tv_usec / 1000;
 	return (time);
 }
