@@ -20,6 +20,9 @@ typedef struct s_data
 	pthread_mutex_t		mutex_time;
 	pthread_mutex_t		mutex_print;
 	pthread_mutex_t		*mutex_forks;
+
+	//int					hasdied;
+
 }	t_data;
 
 typedef struct s_philosopher

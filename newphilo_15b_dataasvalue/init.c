@@ -36,6 +36,9 @@ int	store_arguments(int argc, char **argv, t_data *d)
 	d->time_to_sleep = atoi(argv[4]);
 	d->max_meals_per_philo = -1;
 	d->count_meals = 0;
+
+	//d->hasdied = 0;
+
 	if (d->nrfilos <= 0 || d->time_to_die < 1
 		|| d->time_to_eat < 0 || d->time_to_sleep < 0)
 	{
