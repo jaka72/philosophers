@@ -41,6 +41,7 @@ void		message(t_philo *ph, char *str, unsigned long long time);
 int			msg_and_free(t_philo *ph, t_data *d, char *str, int ret);
 int			print_and_return(int code, char *msg);
 void		free_all(t_philo *ph, t_data *d);
+void		join_threads(t_data data, t_philo *philo_struct);
 void		*start_philo(void *philo);
 int			timer(t_philo *ph);
 void		mysleep(int milisecs);

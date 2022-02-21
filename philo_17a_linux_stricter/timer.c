@@ -16,8 +16,6 @@ int	has_died(t_philo *ph, long long current_time)
 	pthread_mutex_lock(&ph->d->mutex_death);
 	if (ph->d->mealsreached == 1)
 	{
-		//printf("Reached max meals (%d) per philosopher.\n",
-		//	ph->d->max_meals_per_philo);
 		pthread_mutex_unlock(&ph->d->mutex_death);
 		return (1);
 	}

@@ -1,10 +1,11 @@
 #!/bin/sh
 
-#norminette main.c
+norminette main.c
 norminette init.c
 norminette start_philo.c
 norminette timer.c
 norminette utils.c
 norminette free.c
+norminette ft_atoi.c
 norminette header.h
 

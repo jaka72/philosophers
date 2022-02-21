@@ -6,18 +6,12 @@ int	malloc_forks(t_data *d)
 
 	d->mutex_forks = malloc(sizeof(pthread_mutex_t) * d->nrfilos);
 	if (d->mutex_forks == NULL)
-	{
-		printf("Error with mallocing\n");
-		return (1);
-	}
+		return (print_and_return(1, "Error with mallocing\n"));
 	i = 0;
 	while (i < d->nrfilos)
 	{
 		if (pthread_mutex_init(&d->mutex_forks[i], NULL) != 0)
-		{
-			printf("Error initializing a mutex\n");
-			return (1);
-		}
+			return (print_and_return(1, "Error initializing a mutex\n"));
 		i++;
 	}
 	return (0);
@@ -51,11 +45,9 @@ int	loop_create_threads(t_data *d, t_philo *ph, int i)
 	{
 		ph[i].new_start_time = get_time(ph);
 		ph[i].deadline = ph[i].new_start_time + ph[i].d->time_to_die;
-		if (pthread_create(&ph[i].thread, NULL, &start_philo, (void *)&ph[i]) != 0)
-		{
-			printf("Error creating a thread\n");
-			return (1);
-		}
+		if (pthread_create(&ph[i].thread,
+				NULL, &start_philo, (void *)&ph[i]) != 0)
+			return (print_and_return(1, "Error creating a thread\n"));
 		i += 1;
 	}
 	return (0);
@@ -65,21 +57,14 @@ int	start_threads(t_data *d, t_philo *ph)
 {
 	if (loop_create_threads(d, ph, 0) != 0)
 		return (1);
-
 	if (timer(ph) == 0)
 		return (0);
-
 	return (0);
 }
 
-
-
-
-
-
+//system("leaks philo");
 int	main(int argc, char **argv)
 {
-	int				i;
 	t_philo			*philo_struct;
 	t_data			data;
 	struct timeval	t;
@@ -95,16 +80,7 @@ int	main(int argc, char **argv)
 	gettimeofday(&t, NULL);
 	data.startofsession = t.tv_sec * 1000 + t.tv_usec / 1000;
 	start_threads(&data, philo_struct);
-	i = 0;
-	while (i < data.nrfilos)
-	{
-		if (philo_struct->d->nrfilos == 1)
-			pthread_mutex_unlock(&philo_struct->d->mutex_forks[philo_struct->id]);
-		if (pthread_join(philo_struct[i].thread, NULL) != 0)
-			printf("Error joining a thread %d\n", i);
-		i++;
-	}
+	join_threads(data, philo_struct);
 	free_all(philo_struct, &data);
-	//system("leaks philo");
 	return (0);
 }

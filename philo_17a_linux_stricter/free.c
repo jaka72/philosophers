@@ -22,10 +22,24 @@ void	destroy_mutexes(t_philo *ph)
 	}
 }
 
+void	join_threads(t_data data, t_philo *ph)
+{
+	int	i;
+
+	i = 0;
+	while (i < data.nrfilos)
+	{
+		if (ph->d->nrfilos == 1)
+			pthread_mutex_unlock(&ph->d->mutex_forks[ph->id]);
+		if (pthread_join(ph[i].thread, NULL) != 0)
+			printf("Error joining a thread %d\n", i);
+		i++;
+	}
+}
+
 void	free_all(t_philo *ph, t_data *d)
 {
 	destroy_mutexes(ph);
-	//printf("  From free All\n");
 	if (ph->d->mutex_forks != NULL)
 	{
 		free(d->mutex_forks);
