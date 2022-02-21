@@ -1,1 +1,62 @@
 
+CYCLE 0
+TEST 0
+11860 1 has taken a fork
+11860 1 is eatin
+
+CYCLE 0
+TEST 1
+11859 5 has taken a fork
+11859 5 has taken 
+
+CYCLE 0
+TEST 2
+14798 4 is eating
+1
+
+CYCLE 0
+TEST 3
+14882 60 has taken a fork
+1488
+
+CYCLE 0
+TEST 4
+14882 79 is thinking
+14882 82 is sleepi
+
+CYCLE 0
+TEST 5
+14897 30 has taken a fork
+14897 30 is eat
+
+CYCLE 1
+TEST 0
+11859 3 has taken a fork
+11859 3 is eatin
+
+CYCLE 1
+TEST 1
+11860 5 is eating
+11860 2 has taken a 
+
+CYCLE 1
+TEST 2
+14799 2 is sleeping
+1
+
+CYCLE 1
+TEST 3
+14889 52 is thinking
+14889 88 ha
+
+CYCLE 1
+TEST 4
+14880 4 has taken a fork
+14
+
+CYCLE 1
+TEST 5
+14889 112 has taken a fork
+1488
+
+CYCLE 2

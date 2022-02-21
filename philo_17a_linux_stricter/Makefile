@@ -9,6 +9,7 @@ C_FILES_MAIN	=	main.c \
 					start_philo.c \
 					timer.c \
 					utils.c \
+					ft_atoi.c \
 					free.c
 
 OBJ_FILES	= $(patsubst %, $(OBJ_DIR)/%, $(C_FILES_MAIN:.c=.o))
