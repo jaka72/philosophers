@@ -1,227 +1,26 @@
 
 CYCLE 0
 TEST 0
-11859 3 has taken a fork
-11859 3 is eatin
+4021 2 is eating
+4021 
 
 TEST 1
-11860 5 has taken a fork
-11860 5 is eating
+4020 2 is eating
+4
 
 TEST 2
-14799 3 is thinking
-1
+3020 4 is thinking
+30
 
 TEST 3
-14882 21 is sleeping
-14882 48 has 
+4828 78 is thinking
+4828 7
 
 TEST 4
-14880 96 is sleeping
-14880 105
+4828 58 has taken a fork
+4828
 
 TEST 5
-14895 110 is eating
-14895 174 has taken
+4829 160 is eating
+4829 84 has t
 
-CYCLE 1
-TEST 0
-11859 3 is eating
-11859 2 is sleepin
-
-TEST 1
-11859 2 has taken a fork
-11859 5 has taken 
-
-TEST 2
-14809 4 is eating
-1
-
-TEST 3
-14883 60 has taken a fork
-14883 60 has taken a for
-
-TEST 4
-14881 4 has taken a fork
-14881 4 is 
-
-TEST 5
-14895 130 has taken a fork
-1
-
-CYCLE 2
-TEST 0
-11860 3 has taken a fork
-11860 3 is eatin
-
-TEST 1
-11859 5 has taken a fork
-11859 5 has taken 
-
-TEST 2
-14798 4 is eating
-1
-
-TEST 3
-14888 34 is eating
-14888 67 is sleep
-
-TEST 4
-14881 81 is thinking
-14881 81 has taken a fo
-
-TEST 5
-14894 52 has taken a fork
-148
-
-CYCLE 3
-TEST 0
-11859 1 has taken a fork
-11859 1 is eatin
-
-TEST 1
-11860 5 is eating
-11860 3 has taken 
-
-TEST 2
-14801 2 is sleeping
-1
-
-TEST 3
-14881 51 is sleeping
-14881 19 is sleeping
-
-TEST 4
-14886 89 is thinking
-14886 67 
-
-TEST 5
-14893 110 has taken a fork
-14893
-
-CYCLE 4
-TEST 0
-11861 1 has taken a fork
-11861 1 is eatin
-
-TEST 1
-11860 2 has taken a fork
-11860 5 has taken 
-
-TEST 2
-14798 1 is eating
-1
-
-TEST 3
-14885 88 is thinking
-14885 2 has taken a f
-
-TEST 4
-14881 95 is eating
-14881 1 is sleepi
-
-TEST 5
-14893 160 has taken a fork
-1
-
-CYCLE 5
-TEST 0
-11859 3 is eating
-11859 2 is sleepin
-
-TEST 1
-11860 5 has taken a fork
-11860 5 is eating
-
-TEST 2
-14804 2 is sleeping
-14804 1 has taken a f
-
-TEST 3
-14885 72 has taken a fork
-1
-
-TEST 4
-14884 71 is eating
-1488
-
-TEST 5
-14892 30 is eating
-14892 125 i
-
-CYCLE 6
-TEST 0
-11864 3 has taken a fork
-11864 3 is eatin
-
-TEST 1
-11859 5 has taken a fork
-11859 5 has taken 
-
-TEST 2
-14800 1 has taken a fork
-14800 1 has taken a
-
-TEST 3
-14884 75 is sleeping
-14884 97 is
-
-TEST 4
-14885 6 is eating
-14
-
-TEST 5
-14886 91 is sleeping
-14886 128 has tak
-
-CYCLE 7
-TEST 0
-11859 1 has taken a fork
-11859 1 is eatin
-
-TEST 1
-11860 5 is eating
-11860 3 has taken 
-
-TEST 2
-14798 1 has taken a fork
-14798 1 is eatin
-
-TEST 3
-14882 71 is sleeping
-14882 6
-
-TEST 4
-14887 89 is eating
-14887 65 ha
-
-TEST 5
-14895 128 has taken a fork
-14895 34 has taken a 
-
-CYCLE 8
-TEST 0
-11859 3 has taken a fork
-11859 3 is eatin
-
-TEST 1
-11859 5 has taken a fork
-11859 5 has taken 
-
-TEST 2
-14799 1 is thinking
-1
-
-TEST 3
-14885 54 has taken a fork
-14885 54 
-
-TEST 4
-14884 75 is eating
-14884 6 has taken 
-
-TEST 5
-14893 52 is eating
-14893 86
-
-CYCLE 9

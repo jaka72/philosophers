@@ -42,15 +42,3 @@ fclean:	clean
 		rm -f philo
 
 .PHONY: fclean bonus clean re all
-
-#	10s					ok	died
-#	2 410 200 200 		6	0
-#	4 410 200 200 		10 	2
-#	5 610 200 200		0	2
-#	5 610 150 150		6	0
-#	8 410 200 200 		3	0
-# 200 800 200 200 		5	0
-
-#	If not enough time:
-#   4 390 200 200		sanit.error:
-#  20 410 200 200 		sanit.error:   

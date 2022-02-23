@@ -27,9 +27,9 @@ RES="\033[0m"
 #		These last lines go into file output_lastlines
 #
 #	SET VARIABLES:
-	TIME=15		# How long to run each test (must be >= 5 secs)
+	TIME=5		# How long to run each test (must be >= 5 secs)
 	MEALS=15		# Max nr of meals (only for the last group of tests)
-	CYCLES=15	# How many times to perform each group of tests 
+	CYCLES=1	# How many times to perform each group of tests 
 #
 ###################################################################################
 
@@ -59,31 +59,31 @@ check_last_lines() {
 
 # ## SHOULD DIE ##################################################
 
-# ARGS=(	"1 800 200 200"\
-# 		"2 200 200 200"\
-# 		"2 310 200 100"\
-# 		"4 310 200 100"\
-# 		"4 200 205 200")
-# ARRLEN=${#ARGS[@]}
+ARGS=(	"1 800 200 200"\
+		"2 200 200 200"\
+		"2 310 200 100"\
+		"4 310 200 100"\
+		"4 200 205 200")
+ARRLEN=${#ARGS[@]}
 
-# j=0
-# while [ $j -lt $CYCLES ]
-# 	do
-# 	echo -e "${GRN}\n----------------------------------------------------------- ${RES}"
-# 	echo -e    "${GRN}SHOULD DIE: ----------------------------------------------- ${RES}\n"
-# 	echo -e "${GRN}     CYCLE $j ${RES}"
-# 	i=0
-# 	while [ $i -lt $ARRLEN ]
-# 		do
-# 			./philo ${ARGS[$i]} > output
-# 			RET=$(grep -c 'died' output)
-# 			if [ $RET = 1 ]; then
-# 				echo -e "    ${ARGS[$i]} $DIED $OK \n"
-# 			fi
-# 			((i++))
-# 	done
-# 	((j++))
-# done
+j=0
+while [ $j -lt $CYCLES ]
+	do
+	echo -e "${GRN}\n----------------------------------------------------------- ${RES}"
+	echo -e    "${GRN}SHOULD DIE: ----------------------------------------------- ${RES}\n"
+	echo -e "${GRN}     CYCLE $j ${RES}"
+	i=0
+	while [ $i -lt $ARRLEN ]
+		do
+			./philo ${ARGS[$i]} > output
+			RET=$(grep -c 'died' output)
+			if [ $RET = 1 ]; then
+				echo -e "    ${ARGS[$i]} $DIED $OK \n"
+			fi
+			((i++))
+	done
+	((j++))
+done
 
 
 
@@ -109,14 +109,18 @@ do
 	do
 		echo -e -n "Test $i:	${ARGS[$i]}"
 		gtimeout $TIME ./philo	${ARGS[$i]}    > output ; sleep 1
+		python3 output_check_order.py
+		ORDER=$?
 		RET=$(grep -c 'died' output)
 		check_last_lines $i
 		CHECK=$?
-		if [ $RET = 0 ]; then
+		if [ $RET == 0 ] && [ $ORDER == 0 ]; then
 			if [ $CHECK == 0 ]; then
 				echo -e " .... $OK \n" ; sleep 1
 			fi
-		elif [ $RET = 1 ]; then
+		elif [ $RET = 1 ] && [ $ORDER == 0 ]; then
+			echo -e " .... died $KO \n" ; sleep 1
+		elif [ $RET = 1 ] && [ $ORDER == 1 ]; then
 			echo -e " .... died $KO \n" ; sleep 1
 		fi
 		((i++))

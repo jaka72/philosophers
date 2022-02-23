@@ -28,11 +28,11 @@ int	initiate_mutexes(t_data *data, t_philo *ph)
 		ph[i].id = i;
 		i++;
 	}
-	if (pthread_mutex_init(&ph->d->mutex_death, NULL) != 0)
-		return (1);
 	if (pthread_mutex_init(&ph->d->mutex_time, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&ph->d->mutex_print, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&ph->d->mutex_death, NULL) != 0)
 		return (1);
 	if (malloc_forks(data) != 0)
 		return (1);
@@ -43,7 +43,7 @@ int	loop_create_threads(t_data *d, t_philo *ph, int i)
 {
 	while (i < d->nrfilos)
 	{
-		ph[i].new_start_time = get_time(ph);
+		ph[i].new_start_time = get_time();
 		ph[i].deadline = ph[i].new_start_time + ph[i].d->time_to_die;
 		if (pthread_create(&ph[i].thread,
 				NULL, &start_philo, (void *)&ph[i]) != 0)
@@ -62,7 +62,6 @@ int	start_threads(t_data *d, t_philo *ph)
 	return (0);
 }
 
-//system("leaks philo");
 int	main(int argc, char **argv)
 {
 	t_philo			*philo_struct;

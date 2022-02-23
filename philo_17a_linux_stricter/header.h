@@ -45,7 +45,7 @@ void		join_threads(t_data data, t_philo *philo_struct);
 void		*start_philo(void *philo);
 int			timer(t_philo *ph);
 void		mysleep(int milisecs);
-long long	get_time(t_philo *ph);
+long long	get_time(void);
 int			ft_atoi(const char *str);
 
 #endif
