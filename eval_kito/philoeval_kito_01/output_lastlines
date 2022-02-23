@@ -1,0 +1,26 @@
+
+CYCLE 0
+TEST 0
+4020 1 is sleeping
+4020 
+
+TEST 1
+4021 4 has taken a fork
+4
+
+TEST 2
+3020 4 has taken a fork
+3020 4 has taken a 
+
+TEST 3
+4826 39 is sleeping
+48
+
+TEST 4
+4829 28 is eating
+4829 54 has taken
+
+TEST 5
+4882 113 has taken a fork
+4882 113 i
+
