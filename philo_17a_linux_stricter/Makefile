@@ -2,7 +2,7 @@ BLU = \033[0;34m
 WHT = \033[0m
 
 NAME 			=	philo
-FLAGS 			=	-Wall -Wextra -Werror
+FLAGS 			=	-Wall -Wextra -Werror -fsanitize=thread -g
 OBJ_DIR 		=	obj_dir
 C_FILES_MAIN	=	main.c \
 					init.c \
@@ -30,7 +30,7 @@ $(OBJ_DIR)/%.o: 	%.c
 
 $(NAME): $(OBJ_FILES)
 		@echo "$(BLU)\n - Making Philosophers Executable --- $(WHT)"
-#		gcc -fsanitize=thread -g $^ $(FLAGS) -pthread -o $(NAME)
+#		gcc  $^ $(FLAGS) -pthread -o $(NAME)
 		gcc -g $^ $(FLAGS) -pthread -o $(NAME)
 
 re:		fclean all
