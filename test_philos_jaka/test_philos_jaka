@@ -20,12 +20,13 @@ RES="\033[0m"
 #		(These last lines go into file "output_lastlines")
 #
 #	SET VARIABLES:
-	TIME=5			# Set the runtime of each test, in seconds
+	TIME=2			# Set the runtime of each test, in seconds
 	MEALS=5			# Max nr of meals (only for the last group of tests)
 	CYCLES=1		# How many times to perform each group of tests 
 #
 #	Put this test folder into the philo folder, where the executable philo is.
 #	Run: bash test_philos_jaka
+#		(Try also running with fsanitize)
 #
 ###################################################################################
 
@@ -103,11 +104,11 @@ done
 ARGS=(  
 	"  2 710  300 100"\
 	"  4 410  200 200"\
-#	"  5 800  200 200"\
+	#"  5 800  200 200"\
 	"  5 1000 200 200"\
 	"  5 600  150 150"\
-	"  7 800  200 100"\
-#	"  7 800  100 300"\
+	#"  7 800  200 100"\
+	#"  7 800  100 300"\
 	"100 800  200 200"\
 	"105 800  200 200"\
 	"200 800  200 200"

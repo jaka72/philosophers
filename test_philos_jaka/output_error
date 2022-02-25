@@ -1,0 +1,672 @@
+
+
+
+
+--- SHOULD DIE, CYCLE 0, TEST 0 ---
+
+
+
+--- SHOULD DIE, CYCLE 0, TEST 1 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97837)
+  Cycle in lock order graph: M3 (0x7b14000000c8) => M2 (0x7b14000000a0) => M3
+
+  Mutex M2 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97840, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97839, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD DIE, CYCLE 0, TEST 2 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97848)
+  Cycle in lock order graph: M3 (0x7b14000000c8) => M2 (0x7b14000000a0) => M3
+
+  Mutex M2 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97851, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97850, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD DIE, CYCLE 0, TEST 3 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97853)
+  Cycle in lock order graph: M3 (0x7b28000000c8) => M4 (0x7b28000000f0) => M5 (0x7b2800000118) => M2 (0x7b28000000a0) => M3
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97856, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=97857, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=97858, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97855, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD DIE, CYCLE 0, TEST 4 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97862)
+  Cycle in lock order graph: M3 (0x7b28000000c8) => M4 (0x7b28000000f0) => M5 (0x7b2800000118) => M2 (0x7b28000000a0) => M3
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97865, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=97867, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=97868, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97864, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 0 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97874)
+  Cycle in lock order graph: M3 (0x7b14000000c8) => M2 (0x7b14000000a0) => M3
+
+  Mutex M2 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97877, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97876, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 1 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97905)
+  Cycle in lock order graph: M3 (0x7b28000000c8) => M4 (0x7b28000000f0) => M5 (0x7b2800000118) => M2 (0x7b28000000a0) => M3
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=97908, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=97909, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=97910, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=97907, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 2 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97931)
+  Cycle in lock order graph: M2 (0x7b34000000d0) => M3 (0x7b34000000f8) => M4 (0x7b3400000120) => M5 (0x7b3400000148) => M6 (0x7b3400000170) => M2
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M6 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M6 in thread T5:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T1 (tid=97933, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T2 (tid=97934, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=97935, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=97936, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T5 (tid=97937, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 3 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=97971)
+  Cycle in lock order graph: M2 (0x7b34000000d0) => M3 (0x7b34000000f8) => M4 (0x7b3400000120) => M5 (0x7b3400000148) => M6 (0x7b3400000170) => M2
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M6 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M6 in thread T5:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T1 (tid=97973, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T2 (tid=97974, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=97975, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=97976, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T5 (tid=97977, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 4 ---
+WARNING: too long mutex cycle found
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 5 ---
+WARNING: too long mutex cycle found
+
+
+
+--- SHOULD NOT DIE, CYCLE 0, TEST 6 ---
+WARNING: too long mutex cycle found
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 0 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=98504)
+  Cycle in lock order graph: M3 (0x7b14000000c8) => M2 (0x7b14000000a0) => M3
+
+  Mutex M2 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T2 (tid=98507, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=98506, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 1 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=98553)
+  Cycle in lock order graph: M5 (0x7b2800000118) => M2 (0x7b28000000a0) => M3 (0x7b28000000c8) => M4 (0x7b28000000f0) => M5
+
+  Mutex M2 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T4 (tid=98558, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T1 (tid=98555, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T2 (tid=98556, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=98557, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 2 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=98594)
+  Cycle in lock order graph: M2 (0x7b34000000d0) => M3 (0x7b34000000f8) => M4 (0x7b3400000120) => M5 (0x7b3400000148) => M6 (0x7b3400000170) => M2
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M6 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M6 in thread T5:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T1 (tid=98596, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T2 (tid=98597, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=98598, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=98599, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T5 (tid=98600, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 3 ---
+==================
+WARNING: ThreadSanitizer: lock-order-inversion (potential deadlock) (pid=98636)
+  Cycle in lock order graph: M2 (0x7b34000000d0) => M3 (0x7b34000000f8) => M4 (0x7b3400000120) => M5 (0x7b3400000148) => M6 (0x7b3400000170) => M2
+
+  Mutex M3 acquired here while holding mutex M2 in thread T1:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+    Hint: use TSAN_OPTIONS=second_deadlock_stack=1 to get more informative warning message
+
+  Mutex M4 acquired here while holding mutex M3 in thread T2:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M5 acquired here while holding mutex M4 in thread T3:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M6 acquired here while holding mutex M5 in thread T4:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Mutex M2 acquired here while holding mutex M6 in thread T5:
+    #0 pthread_mutex_lock ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:4165 (libtsan.so.0+0x526fc)
+    #1 lock_forks_and_eat /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 (philo+0x2342)
+    #2 start_philo /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:63 (philo+0x253a)
+
+  Thread T1 (tid=98638, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T2 (tid=98639, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T3 (tid=98640, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T4 (tid=98641, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+  Thread T5 (tid=98642, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:962 (libtsan.so.0+0x5ea79)
+    #1 loop_create_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:48 (philo+0x1775)
+    #2 start_threads /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:58 (philo+0x17fb)
+    #3 main /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/main.c:81 (philo+0x19d3)
+
+SUMMARY: ThreadSanitizer: lock-order-inversion (potential deadlock) /media/jaka/Windows/Users/admin/Desktop/codam_projects/philosophers/start_philo.c:43 in lock_forks_and_eat
+==================
+ThreadSanitizer: reported 1 warnings
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 4 ---
+WARNING: too long mutex cycle found
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 5 ---
+WARNING: too long mutex cycle found
+
+
+
+--- SHOULD STOP AFTER 5 MEALS, CYCLE 0, TEST 6 ---
+WARNING: too long mutex cycle found
