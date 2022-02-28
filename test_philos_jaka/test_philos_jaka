@@ -11,6 +11,8 @@ RES="\033[0m"
 #
 #	On Mac, must be installed brew Coreutils, for gtimeout
 #
+#	The test folder should be next to the philo folder (or change variable PHILOPATH)
+#
 #	Each output goes into file "output", temporarily.
 #	Sterr goes into file "output_erorr"
 #
@@ -20,9 +22,11 @@ RES="\033[0m"
 #		(These last lines go into file "output_lastlines")
 #
 #	SET VARIABLES:
-	TIME=15			# Set the runtime of each test, in seconds
-	MEALS=15			# Max nr of meals (only for the last group of tests)
-	CYCLES=1		# How many times to perform each group of tests 
+      TIME=11     	# Set the runtime of each test, in seconds
+      MEALS=20     	# Max nr of meals (only for the last group of tests)
+      CYCLES=3     	# How many times to perform each group of tests 
+      FOLDERPATH="../philo"
+
 #
 #	Put this test folder into the philo folder, where the executable philo is.
 #	Run: bash test_philos_jaka
@@ -32,7 +36,7 @@ RES="\033[0m"
 
 
 
-cd ../ && make re && cd ./test_philos_jaka
+cd ../philo && make re && cd ../test_philos_jaka
 
 
 # CLEAR THE FILE FROM PREVIOUS OUTPUT
@@ -86,7 +90,7 @@ while [ $j -lt $CYCLES ]
 	while [ $i -lt $ARRLEN ]
 		do
 			echo -e "\n\n\n--- SHOULD DIE, CYCLE $j, TEST $i ---" >> output_error
-			../philo ${ARGS[$i]} 2>> output_error 1> output
+			$FOLDERPATH/philo ${ARGS[$i]} 2>> output_error 1> output
 			RET=$(grep -c 'died' output)
 			if [ $RET = 1 ]; then
 				echo -e "   ${ARGS[$i]}     $GRN died  OK $RES \n"
@@ -126,7 +130,7 @@ do
 	do
 		echo -e -n "   Test $i:	${ARGS[$i]}"
 		echo -e "\n\n\n--- SHOULD NOT DIE, CYCLE $j, TEST $i ---" >> output_error
-		$TIMEOUT $TIME ../philo	${ARGS[$i]} 2>> output_error 1> output ; sleep 1
+		$TIMEOUT $TIME $FOLDERPATH/philo	${ARGS[$i]} 2>> output_error 1> output ; sleep 1
 		python3 output_check_order.py
 		ORDER=$?
 		RET=$(grep -c 'died' output)
@@ -174,7 +178,7 @@ do
 	do
 		echo -e -n "   Test $i:  ${ARGS[$i]} $MEALS"     ; sleep 1
 		echo -e "\n\n\n--- SHOULD STOP AFTER $MEALS MEALS, CYCLE $j, TEST $i ---" >> output_error
- 		../philo	${ARGS[$i]} $MEALS 2>> output_error 1> output ; sleep 1
+ 		$FOLDERPATH/philo	${ARGS[$i]} $MEALS 2>> output_error 1> output ; sleep 1
 		RET=$(grep -c 'died' output)
 		if ! [ -s output ]; then
 			RET=-1

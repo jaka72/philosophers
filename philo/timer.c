@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   timer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/28 17:29:15 by jmurovec      #+#    #+#                 */
+/*   Updated: 2022/02/28 17:29:16 by jmurovec      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 int	has_died(t_philo *ph, long long current_time)
@@ -14,8 +26,6 @@ int	has_died(t_philo *ph, long long current_time)
 		return (1);
 	}
 	pthread_mutex_unlock(&ph->d->mut_protect);
-
-
 	pthread_mutex_lock(&ph->d->mut_protect);
 	if (ph->d->mealsreached == 1)
 	{

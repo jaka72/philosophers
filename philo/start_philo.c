@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/25 12:05:24 by jaka          #+#    #+#                 */
-/*   Updated: 2022/02/27 09:32:24 by jaka          ########   odam.nl         */
+/*   Updated: 2022/02/28 17:31:09 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,27 @@ void	start_eating(t_philo *ph)
 	}
 }
 
+void	choose_fork(t_philo *ph, int *first_fork, int *second_fork)
+{
+	if (ph->id != 0)
+	{
+		*first_fork = ph->id;
+		*second_fork = (ph->id + 1) % ph->d->nrfilos;
+	}
+	if (ph->id == 0)
+	{
+		*first_fork = (ph->id + 1) % ph->d->nrfilos;
+		*second_fork = ph->id;
+	}
+}
+
 int	lock_forks_and_eat(t_philo *ph)
 {
-	pthread_mutex_lock(&ph->d->mut_forks[ph->id]);
+	int	first_fork;
+	int	second_fork;
+
+	choose_fork(ph, &first_fork, &second_fork);
+	pthread_mutex_lock(&ph->d->mut_forks[first_fork]);
 	pthread_mutex_lock(&ph->d->mut_print);
 	message(ph, "has taken a fork", get_time());
 	pthread_mutex_unlock(&ph->d->mut_print);
@@ -38,16 +56,16 @@ int	lock_forks_and_eat(t_philo *ph)
 	{
 		pthread_mutex_unlock(&ph->d->mut_forks[ph->id]);
 		mysleep(ph->d->time_to_die);
-		return (0);
+		return (1);
 	}
-	pthread_mutex_lock(&ph->d->mut_forks[(ph->id + 1) % ph->d->nrfilos]);
+	pthread_mutex_lock(&ph->d->mut_forks[second_fork]);
 	pthread_mutex_lock(&ph->d->mut_print);
 	message(ph, "has taken a fork", get_time());
 	start_eating(ph);
 	pthread_mutex_unlock(&ph->d->mut_print);
 	mysleep(ph->d->time_to_eat);
-	pthread_mutex_unlock(&ph->d->mut_forks[ph->id]);
-	pthread_mutex_unlock(&ph->d->mut_forks[(ph->id + 1) % ph->d->nrfilos]);
+	pthread_mutex_unlock(&ph->d->mut_forks[first_fork]);
+	pthread_mutex_unlock(&ph->d->mut_forks[second_fork]);
 	return (0);
 }
 

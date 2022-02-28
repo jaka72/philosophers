@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/28 17:29:04 by jmurovec      #+#    #+#                 */
+/*   Updated: 2022/02/28 17:29:05 by jmurovec      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 int	malloc_forks(t_data *d)
@@ -28,8 +40,6 @@ int	initiate_mutexes(t_data *data, t_philo *ph)
 		ph[i].id = i;
 		i++;
 	}
-	//if (pthread_mutex_init(&ph->d->mut_time, NULL) != 0)
-	//	return (1);
 	if (pthread_mutex_init(&ph->d->mut_print, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&ph->d->mut_protect, NULL) != 0)

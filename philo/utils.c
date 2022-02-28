@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/28 17:29:18 by jmurovec      #+#    #+#                 */
+/*   Updated: 2022/02/28 17:29:22 by jmurovec      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 int	print_and_return(int code, char *msg)
@@ -18,7 +30,6 @@ void	mysleep(int milisecs)
 	while (current <= deadline)
 	{
 		usleep(500);
-		//mysleep(500);
 		gettimeofday(&t, NULL);
 		current = t.tv_sec * 1000 + t.tv_usec / 1000;
 	}
