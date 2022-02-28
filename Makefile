@@ -2,7 +2,7 @@ BLU = \033[0;34m
 WHT = \033[0m
 
 NAME 			=	philo
-FLAGS 			=	-Wall -Wextra -Werror -fsanitize=thread -g 
+FLAGS 			=	-Wall -Wextra -Werror -g -fsanitize=thread 
 OBJ_DIR 		=	obj_dir
 C_FILES_MAIN	=	main.c \
 					init.c \

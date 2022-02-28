@@ -17,7 +17,6 @@ typedef struct s_data
 	int					max_meals_per_philo;
 	int					count_meals;
 	long long			startofsession;
-	//pthread_mutex_t		mutex_time;
 	pthread_mutex_t		mut_print;
 	pthread_mutex_t		mut_protect;
 	pthread_mutex_t		*mut_forks;

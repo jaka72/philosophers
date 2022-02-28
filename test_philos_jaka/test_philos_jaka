@@ -20,8 +20,8 @@ RES="\033[0m"
 #		(These last lines go into file "output_lastlines")
 #
 #	SET VARIABLES:
-	TIME=2			# Set the runtime of each test, in seconds
-	MEALS=5			# Max nr of meals (only for the last group of tests)
+	TIME=15			# Set the runtime of each test, in seconds
+	MEALS=15			# Max nr of meals (only for the last group of tests)
 	CYCLES=1		# How many times to perform each group of tests 
 #
 #	Put this test folder into the philo folder, where the executable philo is.
@@ -73,7 +73,6 @@ ARGS=(
 		"1 800 200 200"\
 		"2 200 200 200"\
 		"2 310 200 100"\
-		"4 310 200 100"\
 		"4 200 205 200")
 ARRLEN=${#ARGS[@]}
 
