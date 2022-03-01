@@ -90,7 +90,7 @@ while [ $j -lt $CYCLES ]
 	while [ $i -lt $ARRLEN ]
 		do
 			echo -e "\n\n\n--- SHOULD DIE, CYCLE $j, TEST $i ---" >> output_error
-			$FOLDERPATH/philo ${ARGS[$i]} 2>> output_error 1> output
+			$TIMEOUT 10 $FOLDERPATH/philo ${ARGS[$i]} 2>> output_error 1> output
 			RET=$(grep -c 'died' output)
 			if [ $RET = 1 ]; then
 				echo -e "   ${ARGS[$i]}     $GRN died  OK $RES \n"
