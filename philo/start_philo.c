@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/25 12:05:24 by jaka          #+#    #+#                 */
-/*   Updated: 2022/03/01 16:51:25 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/03/02 09:02:04 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	lock_forks_and_eat(t_philo *ph)
 	{
 		pthread_mutex_unlock(&ph->d->mut_forks[ph->id]);
 		mysleep(ph->d->time_to_die);
-//		return (0);
 		return (1);
 	}
 	pthread_mutex_lock(&ph->d->mut_forks[(ph->id + 1) % ph->d->nrfilos]);
