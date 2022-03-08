@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/28 17:29:01 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/03/07 18:04:33 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/03/08 10:11:49 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	check_args_and_init(char **argv, t_data *d)
 	d->time_to_die = ft_atoi(argv[2]);
 	d->time_to_eat = ft_atoi(argv[3]);
 	d->time_to_sleep = ft_atoi(argv[4]);
-	d->time_to_wait = d->time_to_eat * 0.1;
+	d->time_to_wait = 0;
+	if (d->nrfilos % 2 != 0)
+		d->time_to_wait = d->time_to_eat * 0.1;
 	d->max_meals_per_philo = -1;
 	d->count_meals = 0;
 	d->hasdied = 0;

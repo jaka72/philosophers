@@ -6,11 +6,29 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/28 17:29:04 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/03/07 18:05:27 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/03/08 10:16:20 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+/*
+	FORCED THINKING: VERSION 1
+	In case of Odd nr of philos, there will be extra delay after sleeping:
+	Delay at start:
+	There is an extra variable: timetowait = timetoeat * 0.1 (10 %)
+	Each Odd thread starts with delay: timetoeat - 1
+	  Except last thread starts with delay: timetoeat + timetowait
+	
+	Delay during process:
+	After sleeping each thread waits another timetowait (10% of timetoeat)
+
+	Fork pick order:
+	
+	Even threads first pick low  fork[id],     then high fork[id + 1] 
+	Odd  threads first pick high fork[id + 1], then low  fork[id]
+	Exception: The last thread first picks fork[0], then fork[last]
+*/
 
 int	malloc_forks(t_data *d)
 {

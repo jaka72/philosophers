@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/25 12:05:24 by jaka          #+#    #+#                 */
-/*   Updated: 2022/03/07 18:09:14 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/03/08 10:10:22 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ void	*start_philo(void *philo)
 	{
 		mysleep(ph->d->time_to_eat - 1);
 	}
-//	if (ph->id == ph->d->nrfilos - 1 && ph->d->nrfilos % 2 != 0)
-	if (ph->id == ph->d->nrfilos - 1)
+	if (ph->id == ph->d->nrfilos - 1 && ph->d->nrfilos % 2 != 0)
+//	if (ph->id == ph->d->nrfilos - 1)
 	{
 		mysleep(ph->d->time_to_eat + ph->d->time_to_wait);
 	}
@@ -127,13 +127,13 @@ void	*start_philo(void *philo)
 		if (lock_forks_and_eat(ph) == 1)
 			return (0);
 		pthread_mutex_lock(&ph->d->mut_print);
-//		message(ph, "is sleeping", get_time());
+		message(ph, "is sleeping", get_time());
 		pthread_mutex_unlock(&ph->d->mut_print);
 //		mysleep(ph->d->time_to_sleep);
 		mysleep(ph->time_to_sleep);
 		
 		pthread_mutex_lock(&ph->d->mut_print);
-//		message(ph, "is thinking", get_time());
+		message(ph, "is thinking", get_time());
 		pthread_mutex_unlock(&ph->d->mut_print);
 		mysleep(ph->d->time_to_wait);
 
